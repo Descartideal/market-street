@@ -1,4 +1,5 @@
 'use strict';
+const {OrderIndex}=require('./order-index.cjs');
 const TYPES=['价值投资','趋势追踪','逆向交易','流动性做市','短线投机','内幕交易','速度派量化','分析派量化'];
 const round=v=>Math.round(v*100)/100,clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 class Market {
@@ -31,31 +32,33 @@ class Market {
  setLeverage(v){if(![1,2,3].includes(v))return {ok:false,message:'融资上限须为 1、2、3 倍。'};if(this.player.debt>(v-1)*Math.max(0,this.equity(this.player))+1e-7)return {ok:false,message:'先还款，再降低融资上限。'};this.player.leverageLimit=v;return {ok:true,message:`融资上限已设为 ${v}×。`};}
  borrow(amount){if(!Number.isFinite(amount)||amount<.01)return {ok:false,message:'借款金额至少 $0.01。'};amount=round(amount);const m=this.margin();if(m.liquidating||m.equity<=0||amount>m.capacity+1e-7)return {ok:false,message:'超过可借额度，或账户正在强平。'};this.player.cash+=amount;this.player.debt+=amount;this.bankCash-=amount;this.recordAccount('borrow',amount,amount,amount);return {ok:true,amount,message:`已借入 $${amount.toFixed(2)}，净资产不变。`};}
  repay(amount){if(!Number.isFinite(amount)||amount<.01)return {ok:false,message:'还款金额至少 $0.01。'};const p=this.player,paid=Math.min(round(amount),p.debt,this.availableCash(p.id));if(paid<1e-7)return {ok:false,message:'没有可用现金或没有负债。'};p.cash-=paid;p.debt-=paid;this.bankCash+=paid;if(p.debt<1e-7)p.debt=0;if(!p.debt||this.margin().ratio>=this.recovery)p.liquidating=false;this.recordAccount('repay',paid,-paid,-paid);return {ok:true,amount:paid,message:`已还款 $${paid.toFixed(2)}。`};}
- reservedCash(id){return this.orders.reduce((s,o)=>s+(o.owner===id&&o.side==='buy'?o.qty*o.price:0),0);}
- reservedShares(id,i){return this.orders.reduce((s,o)=>s+(o.owner===id&&o.stock===i&&o.side==='sell'?o.qty:0),0);}
+ get orders(){return this.orderIndex?.values()||[];}
+ set orders(list){this.orderIndex=new OrderIndex(this.count+1);for(const o of list)this.orderIndex.add(o);}
+ reservedCash(id){return Math.max(0,this.orderIndex.cash[id]);}
+ reservedShares(id,i){return Math.max(0,this.orderIndex.shares[id*5+i]);}
  availableCash(id){return Math.max(0,this.people[id].cash-this.reservedCash(id));}
  availableShares(id,i){return Math.max(0,this.people[id].shares[i]-this.reservedShares(id,i));}
- cancel(id,owner=this.playerId){const idx=this.orders.findIndex(o=>o.id===id&&o.owner===owner);if(idx<0)return false;this.orders.splice(idx,1);return true;}
- cancelAll(owner=this.playerId){const before=this.orders.length;this.orders=this.orders.filter(o=>o.owner!==owner);return before-this.orders.length;}
- book(i){return {buy:this.orders.filter(o=>o.stock===i&&o.side==='buy').sort((a,b)=>b.price-a.price||a.id-b.id),sell:this.orders.filter(o=>o.stock===i&&o.side==='sell').sort((a,b)=>a.price-b.price||a.id-b.id)};}
- execute(buy,sell,price){const i=buy.stock,qty=Math.min(buy.qty,sell.qty),amount=qty*price,b=this.people[buy.owner],s=this.people[sell.owner],stock=this.stocks[i];const old=b.shares[i];b.cost[i]=(b.cost[i]*old+amount)/(old+qty);s.realized+=qty*(price-s.cost[i]);b.cash-=amount;s.cash+=amount;b.shares[i]+=qty;s.shares[i]-=qty;buy.qty-=qty;sell.qty-=qty;if(!s.shares[i])s.cost[i]=0;
+ cancel(id,owner=this.playerId){const o=this.orderIndex.active.get(id);return o?.owner===owner?this.orderIndex.remove(id):false;}
+ cancelAll(owner=this.playerId){return this.orderIndex.cancelAll(owner);}
+ book(i){return this.orderIndex.book(i);}
+ execute(buy,sell,price){const i=buy.stock,qty=Math.min(buy.qty,sell.qty),amount=qty*price,b=this.people[buy.owner],s=this.people[sell.owner],stock=this.stocks[i];const old=b.shares[i];b.cost[i]=(b.cost[i]*old+amount)/(old+qty);s.realized+=qty*(price-s.cost[i]);b.cash-=amount;s.cash+=amount;b.shares[i]+=qty;s.shares[i]-=qty;buy.qty-=qty;sell.qty-=qty;this.orderIndex.fill(buy,qty);this.orderIndex.fill(sell,qty);if(!s.shares[i])s.cost[i]=0;
   const bar=this.currentBar(i);stock.price=price;stock.volume+=qty;stock.turnover+=amount;this.lastTrades++;bar.high=Math.max(bar.high,price);bar.low=Math.min(bar.low,price);bar.close=price;bar.volume+=qty;bar.turnover+=amount;bar.trades++;bar.vwap=bar.turnover/bar.volume;
   // Only the mutable current candle changes; prior candles are never rewritten.
   if(this.inTick||this.initializing)stock.history[stock.history.length-1]=price;this.tradeArchive??=[];const t={id:this.tradeArchive.length+1,tick:bar.tick,stock:i,price,qty,buyer:b.id,seller:s.id,phase:this.phase};this.tradeArchive.push(t);this.trades.unshift(t);if(this.trades.length>1000)this.trades.length=1000;if(b.id===this.playerId||s.id===this.playerId){this.playerTrades.unshift(t);this.recordAccount(b.id===this.playerId?'buy':'sell',amount,b.id===this.playerId?-amount:amount,0,{tradeId:t.id,symbol:stock.symbol,qty,price,buyer:b.id,seller:s.id,candleTick:bar.tick});}
  }
- matchIncoming(order){const opposite=this.book(order.stock)[order.side==='buy'?'sell':'buy'];for(const resting of opposite){if(!order.qty)break;if(!resting.qty||resting.owner===order.owner||resting.id===order.id)continue;if(order.side==='buy'?resting.price>order.price:resting.price<order.price)break;this.execute(order.side==='buy'?order:resting,order.side==='sell'?order:resting,resting.price);}this.orders=this.orders.filter(o=>o.qty>0);}
+ matchIncoming(order){const side=order.side==='buy'?'sell':'buy';while(order.qty){const resting=this.orderIndex.best(order.stock,side,order.owner);if(!resting||(order.side==='buy'?resting.price>order.price:resting.price<order.price))break;this.execute(order.side==='buy'?order:resting,order.side==='sell'?order:resting,resting.price);}}
  place(id,i,side,qty,price,ttl=8,kind='limit'){
   if(!Number.isInteger(id)||!this.people[id]||!Number.isInteger(i)||!this.stocks[i]||!['buy','sell'].includes(side)||!Number.isSafeInteger(qty)||qty<1||!Number.isFinite(price)||price<.01||price>1e7||!Number.isInteger(ttl)||ttl<1||ttl>1000)return {ok:false,message:'交易参数无效：整股、正价格、有效期 1–1000 刻。'};
   price=round(price);if(id===this.playerId&&side==='buy'&&this.player.liquidating)return {ok:false,message:'强平中不能买入。'};if(side==='buy'&&qty*price>this.availableCash(id)+1e-7)return {ok:false,message:'可用现金不足。'};if(side==='sell'&&qty>this.availableShares(id,i))return {ok:false,message:'可卖持仓不足。'};
-  const order={id:++this.orderId,owner:id,stock:i,side,qty,original:qty,price,tick:this.tick,expires:this.tick+ttl,kind};this.orders.push(order);this.matchIncoming(order);return {ok:true,order,filled:qty-order.qty};
+  const order={id:++this.orderId,owner:id,stock:i,side,qty,original:qty,price,tick:this.tick,expires:this.tick+ttl,kind};this.matchIncoming(order);this.orderIndex.add(order);return {ok:true,order,filled:qty-order.qty};
  }
  trade(id,i,side,qty,kind='market',price=0,ttl=30){
   if(!this.people[id]||!Number.isInteger(i)||!this.stocks[i]||!['buy','sell'].includes(side)||!Number.isSafeInteger(qty)||qty<1||!['market','limit'].includes(kind))return {ok:false,message:'无效交易参数。'};
   if(id===this.playerId&&side==='buy'&&this.player.liquidating)return {ok:false,message:'强平中不能买入。'};
   let result;
   if(kind==='limit'){result=this.place(id,i,side,qty,Number(price),ttl,kind);if(!result.ok)return result;}
-  else{const opposite=this.book(i)[side==='buy'?'sell':'buy'];let remaining=qty,total=0,limit=0;for(const o of opposite){if(o.owner===id)continue;const q=Math.min(remaining,o.qty);total+=q*o.price;limit=o.price;remaining-=q;if(!remaining)break;}const fill=qty-remaining;if(!fill)return {ok:false,message:'没有其他交易者的对手盘。'};if(side==='buy'&&total>this.availableCash(id)+1e-7)return {ok:false,message:'可用美元不足，请减少数量。'};if(side==='sell'&&qty>this.availableShares(id,i))return {ok:false,message:'可卖持仓不足。'};
-   const order={id:++this.orderId,owner:id,stock:i,side,qty:fill,original:fill,price:limit,tick:this.tick,expires:this.tick+1,kind};this.orders.push(order);this.matchIncoming(order);this.cancel(order.id,id);result={ok:true,order,filled:fill-order.qty};}
+  else{const opposite=this.orderIndex.iterate(i,side==='buy'?'sell':'buy');let remaining=qty,total=0,limit=0;for(const o of opposite){if(o.owner===id)continue;const q=Math.min(remaining,o.qty);total+=q*o.price;limit=o.price;remaining-=q;if(!remaining)break;}const fill=qty-remaining;if(!fill)return {ok:false,message:'没有其他交易者的对手盘。'};if(side==='buy'&&total>this.availableCash(id)+1e-7)return {ok:false,message:'可用美元不足，请减少数量。'};if(side==='sell'&&qty>this.availableShares(id,i))return {ok:false,message:'可卖持仓不足。'};
+   const order={id:++this.orderId,owner:id,stock:i,side,qty:fill,original:fill,price:limit,tick:this.tick,expires:this.tick+1,kind};this.matchIncoming(order);result={ok:true,order,filled:fill-order.qty};}
   if(id===this.playerId&&!this.checkingMargin)this.checkMargin();this.equityHistory[this.tick]=this.equity(this.player);return {ok:true,filled:result.filled,orderId:result.order.qty&&kind==='limit'?result.order.id:null,remaining:kind==='limit'?result.order.qty:qty-result.filled,message:`${side==='buy'?'买入':'卖出'} ${this.stocks[i].symbol}：成交 ${result.filled} 股${kind==='limit'&&result.order.qty?'，剩余挂单 '+result.order.qty+' 股':''}。`};
  }
  submit(i,side,qty,kind,price,ttl=30){return this.trade(this.playerId,i,side,qty,kind,price,ttl);}
@@ -64,7 +67,7 @@ class Market {
   this.checkingMargin=true;const oldPhase=this.phase;this.phase='liquidation';
   try{if(!p.liquidating)this.event('保证金不足，开始减仓','比例低于 25%。撤单并通过真实对手盘减仓还款，恢复到 35% 后停止。');p.liquidating=true;this.cancelAll();if(this.availableCash(p.id)>.000001)this.repay(Math.max(.01,this.availableCash(p.id)));
    // Sell only what the next actual bid needs to restore the recovery ratio; stop without liquidating the full portfolio.
-   let attempts=0;while(p.debt>1e-7&&this.margin().ratio<this.recovery&&attempts++<10000){let candidate=null;for(let i=0;i<5;i++){if(!this.availableShares(p.id,i))continue;const bid=this.book(i).buy.find(o=>o.owner!==p.id);if(bid&&(!candidate||bid.qty*bid.price>candidate.bid.qty*candidate.bid.price))candidate={i,bid};}if(!candidate)break;
+   let attempts=0;while(p.debt>1e-7&&this.margin().ratio<this.recovery&&attempts++<10000){let candidate=null;for(let i=0;i<5;i++){if(!this.availableShares(p.id,i))continue;const bid=this.orderIndex.best(i,'buy',p.id);if(bid&&(!candidate||bid.qty*bid.price>candidate.bid.qty*candidate.bid.price))candidate={i,bid};}if(!candidate)break;
     const {i,bid}=candidate,now=this.margin(),mark=this.stocks[i].price,postEquity=now.equity+p.shares[i]*(bid.price-mark),postGross=now.gross+p.shares[i]*(bid.price-mark);let needed=postEquity>0?Math.ceil((postGross-postEquity/this.recovery)/bid.price):this.availableShares(p.id,i);const q=Math.max(1,Math.min(this.availableShares(p.id,i),bid.qty,needed,Math.ceil(p.debt/bid.price)));
     const r=this.trade(p.id,i,'sell',q,'market');if(!r.ok||!r.filled)break;if(this.availableCash(p.id)>.000001)this.repay(Math.max(.01,this.availableCash(p.id)));}
    if(!p.debt||this.margin().ratio>=this.recovery){p.liquidating=false;this.event('保证金恢复','已恢复安全比例，停止强平；剩余持仓和负债保留。');}
@@ -76,7 +79,7 @@ class Market {
   const recent=h.slice(-24).map(Math.log),n=recent.length,mx=(n-1)/2,my=n?recent.reduce((a,b)=>a+b,0)/n:0;let cov=0,vx=0,vy=0;recent.forEach((v,k)=>{cov+=(k-mx)*(v-my);vx+=(k-mx)**2;vy+=(v-my)**2;});const slope=vx?cov/vx:0,r2=vx&&vy?cov*cov/(vx*vy):0;
   const mu=sma(20),sd=Math.sqrt(h.slice(-20).reduce((a,b)=>a+(b-mu)**2,0)/Math.min(20,h.length));const result={sma5:sma(5),sma20:mu,ema12:ema,rsi14:rsi,volatility:vol,regressionSlope:slope,regressionR2:r2,bollingerUpper:mu+2*sd,bollingerLower:mu-2*sd,zScore:sd?(p-mu)/sd:0,imbalance:0,momentum:h.length>5?p/h[h.length-6]-1:0};s.technicalCache={key:cacheKey,value:result};return {...result,imbalance:withBook?this.imbalance(i):0};
  }
- imbalance(i){const book=this.book(i),bq=book.buy.slice(0,10).reduce((a,b)=>a+b.qty,0),sq=book.sell.slice(0,10).reduce((a,b)=>a+b.qty,0);return bq+sq?(bq-sq)/(bq+sq):0;}
+ imbalance(i){let bq=0,sq=0,n=0;for(const o of this.orderIndex.iterate(i,'buy')){bq+=o.qty;if(++n===10)break;}n=0;for(const o of this.orderIndex.iterate(i,'sell')){sq+=o.qty;if(++n===10)break;}return bq+sq?(bq-sq)/(bq+sq):0;}
  makeMarket(a,i){const ref=this.reference(i),weight=a.shares[i]*ref/Math.max(1,this.equity(a)),shift=clamp((.13-weight)*.02,-.004,.004),center=ref*(1+shift),spread=.0025+this.stocks[i].volatility*.06,qty=2+Math.floor(this.random()*9);const bp=round(Math.max(.01,center*(1-spread))),sp=round(center*(1+spread));let n=0;const b=Math.min(qty,Math.floor(this.availableCash(a.id)/bp)),q=Math.min(qty,this.availableShares(a.id,i));if(b>0){this.place(a.id,i,'buy',b,bp,3);n++;}if(q>0){this.place(a.id,i,'sell',q,Math.max(bp+.01,sp),3);n++;}a.action=`做市 ${this.stocks[i].symbol} · 双边 ${n} 单`;return n;}
  decide(a){this.actionSequence.push({id:a.id,phase:this.phase});if(this.random()>.78){a.action='等待';this.activity.wait++;return;}const i=a.type===5?a.knownSymbols[Math.floor(this.random()*a.knownSymbols.length)]:this.random()<.6?a.focus:Math.floor(this.random()*5),s=this.stocks[i],ref=this.reference(i);
   if(a.type===3){this.cancelAll(a.id);if(this.makeMarket(a,i)){this.activity.buy++;this.activity.sell++;}else this.activity.wait++;return;}
@@ -89,7 +92,7 @@ class Market {
   qty=side==='buy'?Math.min(qty,Math.floor(this.availableCash(a.id)/price)):Math.min(qty,this.availableShares(a.id,i));if(!qty){a.action='等待';this.activity.wait++;return;}const r=this.place(a.id,i,side,qty,price,a.type===6?1:2+Math.floor(this.random()*7));a.action=r.ok?`${side==='buy'?'买':'卖'} ${s.symbol} ${qty} 股${r.filled?' · 成交 '+r.filled:''}`:'等待';this.activity[r.ok?side:'wait']++;
  }
  beginTick(){if(this.inTick)throw new Error('上一回合尚未结束。');this.tick++;this.inTick=true;this.phase='opening';this.lastTrades=0;this.activity={buy:0,sell:0,wait:0};this.actionSequence=[];
-  this.stocks.forEach(s=>{s.previous=s.candles.at(-1).close;const bar=s.pendingBar||this.emptyBar(s,this.tick);s.pendingBar=null;s.volume=bar.volume;s.turnover=bar.turnover;this.lastTrades+=bar.trades;s.candles.push(bar);s.history.push(s.price);});this.orders=this.orders.filter(o=>o.expires>this.tick);
+  this.stocks.forEach(s=>{s.previous=s.candles.at(-1).close;const bar=s.pendingBar||this.emptyBar(s,this.tick);s.pendingBar=null;s.volume=bar.volume;s.turnover=bar.turnover;this.lastTrades+=bar.trades;s.candles.push(bar);s.history.push(s.price);});this.orderIndex.expire(this.tick);
   this.people.forEach(a=>{const cashInterest=a.cash*this.cashRate,income=cashInterest+a.skill;a.cash+=income;a.lastIncome=income;a.totalIncome+=income;this.minted+=income;if(a.id===this.playerId)this.recordAccount('income',income,income,0,{cashInterest,skillIncome:a.skill});});const interest=this.player.debt*this.loanRate;this.player.debt+=interest;this.player.financeCosts+=interest;if(interest)this.recordAccount('loan_interest',interest,0,interest);this.checkMargin();
   this.stocks.forEach(s=>{s.fair=Math.max(1,s.fair*Math.exp((this.random()-.5)*.002));});
   if(this.tick%18===0){const i=Math.floor(this.random()*5),s=this.stocks[i],sign=this.random()<.5?-1:1,shock=.025+this.random()*.045;s.fair*=Math.exp(sign*shock);s.publicValue*=Math.exp(sign*shock*.35);this.event(`${s.symbol} 行业${sign>0?'利好':'利空'}`,`公开消息只反映方向和部分幅度；精确内部估值仅向掌握 ${s.symbol} 的内幕交易者开放。`);}
