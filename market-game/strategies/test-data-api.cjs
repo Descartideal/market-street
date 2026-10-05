@@ -6,6 +6,8 @@ const forbidden=['fair','fairHistory','seed','valuationBias','risk','bias','focu
 const check=x=>{if(!x||typeof x!=='object')return;for(const [key,value]of Object.entries(x)){assert.ok(!forbidden.includes(key),'Private NPC field: '+key);check(value);}};
 for(const method of ['get_market','get_rules','get_player','get_stocks','get_traders','get_trades','get_player_trades','get_events','get_equity_history','get_snapshot'])check(s.rpc(method,{count:0}));
 assert.equal(s.rpc('get_traders',{count:0}).length,51);assert.equal(s.rpc('get_trader',{id:50}).name,'你');assert.throws(()=>s.rpc('get_trader',{id:-1}));
+// Populate enough real fills independently of changing NPC wealth/behaviour.
+m.orders=[];m.people[0].cash=1000000;m.people[1].shares[0]=2000;for(let k=0;k<1005;k++){m.place(1,0,'sell',1,100,30);m.place(0,0,'buy',1,100,30);}
 const archive=s.rpc('get_trades',{count:0});assert.ok(archive.length>1000);assert.equal(archive.length,m.tradeArchive.length);assert.ok(archive[0].id>archive.at(-1).id);assert.deepEqual(s.rpc('get_trades',{count:5,offset:5}),archive.slice(5,10));assert.ok(s.rpc('get_trades',{stock:'A',count:0}).every(t=>t.symbol==='A'));
 const book=s.rpc('get_raw_book',{stock:'A',count:0});assert.equal(book.buy.length,m.book(0).buy.length);assert.equal(s.rpc('get_equity_history',{count:0}).length,101);
 const a=s.rpc('get_player');assert.deepEqual(a.cost,m.player.cost);assert.equal(a.reservedCash,m.reservedCash(m.playerId));assert.deepEqual(a.availableShares,m.player.shares.map((_,i)=>m.availableShares(m.playerId,i)));

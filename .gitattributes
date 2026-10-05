@@ -10,3 +10,5 @@
 *.json text eol=lf
 *.png binary
 *.jpg binary
+*.py text eol=lf
+*.cu text eol=lf
