@@ -1,0 +1,10 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(require('node:path').join(__dirname,'../dist/app.js'),'utf8');
+const functionSource=source.split('\n').find(s=>s.startsWith('function accept(state)'));
+let renders=0;const context=vm.createContext({sessionId:'current',market:{sessionId:'current',revision:10,tick:5},MarketView:class{constructor(s){Object.assign(this,s);}},$:()=>({textContent:''}),num:x=>x,render:()=>renders++,renderBot(){},updateControls(){},renderTerminal(){}});
+vm.runInContext(functionSource,context);
+context.accept({sessionId:'current',revision:9,tick:4});assert.equal(context.market.tick,5);assert.equal(renders,0);
+context.accept({sessionId:'old-game',revision:999,tick:999});assert.equal(context.market.tick,5);assert.equal(renders,0);
+context.accept({sessionId:'current',revision:11,tick:6,count:50});assert.equal(context.market.tick,6);assert.equal(renders,1);
+context.accept({sessionId:'current',revision:10,tick:5});assert.equal(context.market.tick,6);assert.equal(renders,1);
+console.log('UI state: delayed poll response and previous-game responses cannot overwrite newer state.');

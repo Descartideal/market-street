@@ -1,0 +1,110 @@
+[
+  {
+    "name": "L2.7-s10",
+    "seed": 17,
+    "equity": 11850,
+    "profit": 924,
+    "dd": 0.34,
+    "neutralDD": 0.49,
+    "debt": 20158
+  },
+  {
+    "name": "L2.7-s10",
+    "seed": 42,
+    "equity": 11958,
+    "profit": 1041,
+    "dd": 0.17,
+    "neutralDD": 0.25,
+    "debt": 20272
+  },
+  {
+    "name": "L2.7-s10",
+    "seed": 123,
+    "equity": 12105,
+    "profit": 1230,
+    "dd": 0.29,
+    "neutralDD": 0.44,
+    "debt": 20596
+  },
+  {
+    "name": "L2.7-s15",
+    "seed": 17,
+    "equity": 11177,
+    "profit": 289,
+    "dd": 0.39,
+    "neutralDD": 0.68,
+    "debt": 18961
+  },
+  {
+    "name": "L2.7-s15",
+    "seed": 42,
+    "equity": 11471,
+    "profit": 545,
+    "dd": 0.38,
+    "neutralDD": 0.66,
+    "debt": 19442
+  },
+  {
+    "name": "L2.7-s15",
+    "seed": 123,
+    "equity": 11710,
+    "profit": 784,
+    "dd": 0.42,
+    "neutralDD": 0.51,
+    "debt": 19886
+  },
+  {
+    "name": "L2.7-s20",
+    "seed": 17,
+    "equity": 10090,
+    "profit": -789,
+    "dd": 2.13,
+    "neutralDD": 8.47,
+    "debt": 17092
+  },
+  {
+    "name": "L2.7-s20",
+    "seed": 42,
+    "equity": 11085,
+    "profit": 161,
+    "dd": 0.53,
+    "neutralDD": 1.65,
+    "debt": 18817
+  },
+  {
+    "name": "L2.7-s20",
+    "seed": 123,
+    "equity": 10990,
+    "profit": 195,
+    "dd": 0.42,
+    "neutralDD": 0.9,
+    "debt": 18700
+  },
+  {
+    "name": "L2.2-s10",
+    "seed": 17,
+    "equity": 11985,
+    "profit": 1127,
+    "dd": 0.23,
+    "neutralDD": 0.65,
+    "debt": 14352
+  },
+  {
+    "name": "L2.2-s10",
+    "seed": 42,
+    "equity": 12541,
+    "profit": 1662,
+    "dd": 0.14,
+    "neutralDD": 0.22,
+    "debt": 15003
+  },
+  {
+    "name": "L2.2-s10",
+    "seed": 123,
+    "equity": 12303,
+    "profit": 1431,
+    "dd": 0.16,
+    "neutralDD": 0.2,
+    "debt": 14758
+  }
+]

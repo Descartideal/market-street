@@ -1,0 +1,182 @@
+[
+  {
+    "name": "t05",
+    "seed": 17,
+    "equity": 11157,
+    "profit": 501,
+    "dd": 0.13,
+    "wins": 0,
+    "debt": 4468,
+    "trades": 5647
+  },
+  {
+    "name": "t05",
+    "seed": 42,
+    "equity": 11518,
+    "profit": 831,
+    "dd": 0.11,
+    "wins": 0,
+    "debt": 4606,
+    "trades": 5287
+  },
+  {
+    "name": "t05",
+    "seed": 123,
+    "equity": 11114,
+    "profit": 456,
+    "dd": 0.19,
+    "wins": 0,
+    "debt": 4449,
+    "trades": 5660
+  },
+  {
+    "name": "t08",
+    "seed": 17,
+    "equity": 12002,
+    "profit": 1326,
+    "dd": 0.15,
+    "wins": 0,
+    "debt": 4794,
+    "trades": 5279
+  },
+  {
+    "name": "t08",
+    "seed": 42,
+    "equity": 11734,
+    "profit": 1060,
+    "dd": 0.09,
+    "wins": 0,
+    "debt": 4689,
+    "trades": 5115
+  },
+  {
+    "name": "t08",
+    "seed": 123,
+    "equity": 11945,
+    "profit": 1258,
+    "dd": 0.08,
+    "wins": 0,
+    "debt": 4772,
+    "trades": 5312
+  },
+  {
+    "name": "t10",
+    "seed": 17,
+    "equity": 12008,
+    "profit": 1326,
+    "dd": 0.09,
+    "wins": 0,
+    "debt": 4809,
+    "trades": 4301
+  },
+  {
+    "name": "t10",
+    "seed": 42,
+    "equity": 11758,
+    "profit": 1097,
+    "dd": 0.13,
+    "wins": 0,
+    "debt": 4702,
+    "trades": 4709
+  },
+  {
+    "name": "t10",
+    "seed": 123,
+    "equity": 12296,
+    "profit": 1613,
+    "dd": 0.04,
+    "wins": 0,
+    "debt": 4913,
+    "trades": 4614
+  },
+  {
+    "name": "t05-big",
+    "seed": 17,
+    "equity": 11399,
+    "profit": 653,
+    "dd": 0.18,
+    "wins": 0,
+    "debt": 12540,
+    "trades": 7794
+  },
+  {
+    "name": "t05-big",
+    "seed": 42,
+    "equity": 11465,
+    "profit": 712,
+    "dd": 0.16,
+    "wins": 0,
+    "debt": 12614,
+    "trades": 7758
+  },
+  {
+    "name": "t05-big",
+    "seed": 123,
+    "equity": 11026,
+    "profit": 296,
+    "dd": 0.29,
+    "wins": 0,
+    "debt": 12139,
+    "trades": 7428
+  },
+  {
+    "name": "t08-big",
+    "seed": 17,
+    "equity": 11819,
+    "profit": 1063,
+    "dd": 0.19,
+    "wins": 0,
+    "debt": 12998,
+    "trades": 6466
+  },
+  {
+    "name": "t08-big",
+    "seed": 42,
+    "equity": 12062,
+    "profit": 1323,
+    "dd": 0.1,
+    "wins": 0,
+    "debt": 13262,
+    "trades": 7245
+  },
+  {
+    "name": "t08-big",
+    "seed": 123,
+    "equity": 11496,
+    "profit": 780,
+    "dd": 0.27,
+    "wins": 0,
+    "debt": 12640,
+    "trades": 6810
+  },
+  {
+    "name": "t08-cash",
+    "seed": 17,
+    "equity": 11656,
+    "profit": 1030,
+    "dd": 0.09,
+    "wins": 0,
+    "debt": 0,
+    "trades": 3980
+  },
+  {
+    "name": "t08-cash",
+    "seed": 42,
+    "equity": 11573,
+    "profit": 948,
+    "dd": 0.13,
+    "wins": 0,
+    "debt": 0,
+    "trades": 3899
+  },
+  {
+    "name": "t08-cash",
+    "seed": 123,
+    "equity": 11861,
+    "profit": 1223,
+    "dd": 0.08,
+    "wins": 0,
+    "debt": 0,
+    "trades": 4327
+  }
+]

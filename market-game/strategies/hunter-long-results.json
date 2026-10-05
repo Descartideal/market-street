@@ -1,0 +1,35 @@
+[
+  {
+    "count": 1000,
+    "seed": 20261005,
+    "ticks": 1200,
+    "equity": 26513.44,
+    "investment": 11800.06,
+    "income": 4713.38,
+    "maxDrawdownPct": 0.17,
+    "incomeAdjustedDrawdownPct": 0.221,
+    "maxDebt": 0,
+    "marginCalls": 0,
+    "trades": 27269,
+    "positions": [
+      37,
+      0,
+      0,
+      61,
+      44
+    ],
+    "exitEquity": 26468.72,
+    "exitInvestment": 11755.34,
+    "exitUnsold": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "averageBotMs": 47.7,
+    "maxBotMs": 159,
+    "maxCalls": 43,
+    "winTick": 1003
+  }
+]

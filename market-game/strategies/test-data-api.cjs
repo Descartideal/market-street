@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict');
+const {GameSession}=require('../controller.cjs');
+const s=new GameSession('data-test',{count:50,seed:17}),m=s.market;
+for(let i=0;i<100;i++)m.step();
+const forbidden=['fair','fairHistory','seed','valuationBias','risk','bias','focus','technicalCache','actionSequence'];
+const check=x=>{if(!x||typeof x!=='object')return;for(const [key,value]of Object.entries(x)){assert.ok(!forbidden.includes(key),'Private NPC field: '+key);check(value);}};
+for(const method of ['get_market','get_rules','get_player','get_stocks','get_traders','get_trades','get_player_trades','get_events','get_equity_history','get_snapshot'])check(s.rpc(method,{count:0}));
+assert.equal(s.rpc('get_traders',{count:0}).length,51);assert.equal(s.rpc('get_trader',{id:50}).name,'你');assert.throws(()=>s.rpc('get_trader',{id:-1}));
+const archive=s.rpc('get_trades',{count:0});assert.ok(archive.length>1000);assert.equal(archive.length,m.tradeArchive.length);assert.ok(archive[0].id>archive.at(-1).id);assert.deepEqual(s.rpc('get_trades',{count:5,offset:5}),archive.slice(5,10));assert.ok(s.rpc('get_trades',{stock:'A',count:0}).every(t=>t.symbol==='A'));
+const book=s.rpc('get_raw_book',{stock:'A',count:0});assert.equal(book.buy.length,m.book(0).buy.length);assert.equal(s.rpc('get_equity_history',{count:0}).length,101);
+const a=s.rpc('get_player');assert.deepEqual(a.cost,m.player.cost);assert.equal(a.reservedCash,m.reservedCash(m.playerId));assert.deepEqual(a.availableShares,m.player.shares.map((_,i)=>m.availableShares(m.playerId,i)));
+for(let i=0;i<120;i++)m.event('测试公开消息 '+i,'公开内容');assert.equal(s.rpc('get_events',{count:0}).length,m.eventArchive.length);assert.ok(s.rpc('get_events',{count:0}).length>100);assert.equal(s.rpc('get_events',{count:1})[0].title,'测试公开消息 119');
+s.memory.set('own-memory',{secret:'only mine'});assert.deepEqual(s.rpc('get_memory_keys'),['own-memory']);assert.equal(s.rpc('get_memory',{key:'own-memory'}).secret,'only mine');
+for(const args of [{count:-1},{count:100001},{count:1.5},{offset:-1},{offset:1.5}])assert.throws(()=>s.rpc('get_trades',args));
+check(s.snapshot());console.log('Data API: full archive, pagination, positions/reserves, rules, public traders, memory, snapshot whitelist and input validation passed.');
+const finance=new GameSession('ledger',{count:50,seed:17});finance.market.setLeverage(3);finance.market.borrow(1000);finance.market.beginTick();finance.market.finishTick();finance.market.repay(10000);const rows=finance.rpc('get_ledger',{count:0});assert.equal(rows.length,4);assert.equal(rows[0].type,'repay');assert.equal(rows.at(-1).type,'borrow');assert.equal(rows.find(r=>r.type==='loan_interest').debtDelta,.5);assert.equal(rows.find(r=>r.type==='income').details.skillIncome,3);assert.ok(Math.abs(10000+rows.reduce((s,r)=>s+r.cashDelta,0)-finance.market.player.cash)<1e-8);assert.ok(Math.abs(rows.reduce((s,r)=>s+r.debtDelta,0)-finance.market.player.debt)<1e-8);
+console.log('Private ledger: principal, capitalized interest, passive income and exact balance reconciliation passed.');

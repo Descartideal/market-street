@@ -1,0 +1,110 @@
+[
+  {
+    "name": "cash10",
+    "seed": 17,
+    "equity": 11989,
+    "profit": 1357,
+    "dd": 0.1,
+    "debt": 0,
+    "trades": 3655
+  },
+  {
+    "name": "cash10",
+    "seed": 42,
+    "equity": 12216,
+    "profit": 1568,
+    "dd": 0.05,
+    "debt": 0,
+    "trades": 3922
+  },
+  {
+    "name": "cash10",
+    "seed": 123,
+    "equity": 12050,
+    "profit": 1422,
+    "dd": 0.08,
+    "debt": 0,
+    "trades": 3307
+  },
+  {
+    "name": "small-debt10",
+    "seed": 17,
+    "equity": 12159,
+    "profit": 1498,
+    "dd": 0.03,
+    "debt": 1822,
+    "trades": 3843
+  },
+  {
+    "name": "small-debt10",
+    "seed": 42,
+    "equity": 11954,
+    "profit": 1302,
+    "dd": 0.1,
+    "debt": 1792,
+    "trades": 3975
+  },
+  {
+    "name": "small-debt10",
+    "seed": 123,
+    "equity": 12065,
+    "profit": 1406,
+    "dd": 0.14,
+    "debt": 1809,
+    "trades": 3948
+  },
+  {
+    "name": "cash15",
+    "seed": 17,
+    "equity": 11787,
+    "profit": 1184,
+    "dd": 0.1,
+    "debt": 0,
+    "trades": 1887
+  },
+  {
+    "name": "cash15",
+    "seed": 42,
+    "equity": 11842,
+    "profit": 1218,
+    "dd": 0.09,
+    "debt": 0,
+    "trades": 2271
+  },
+  {
+    "name": "cash15",
+    "seed": 123,
+    "equity": 11417,
+    "profit": 802,
+    "dd": 0.2,
+    "debt": 0,
+    "trades": 1320
+  },
+  {
+    "name": "cash12",
+    "seed": 17,
+    "equity": 11948,
+    "profit": 1299,
+    "dd": 0.05,
+    "debt": 0,
+    "trades": 2825
+  },
+  {
+    "name": "cash12",
+    "seed": 42,
+    "equity": 11737,
+    "profit": 1121,
+    "dd": 0.18,
+    "debt": 0,
+    "trades": 2405
+  },
+  {
+    "name": "cash12",
+    "seed": 123,
+    "equity": 11572,
+    "profit": 954,
+    "dd": 0.16,
+    "debt": 0,
+    "trades": 1631
+  }
+]

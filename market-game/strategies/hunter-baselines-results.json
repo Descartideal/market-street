@@ -1,0 +1,74 @@
+[
+  {
+    "name": "cash",
+    "seed": 717,
+    "ticks": 180,
+    "equity": 10726.48,
+    "investment": 0,
+    "maxDrawdownPct": 0
+  },
+  {
+    "name": "equal-buy-hold",
+    "seed": 717,
+    "ticks": 180,
+    "equity": 10785.91,
+    "investment": 229.26,
+    "maxDrawdownPct": 0.168
+  },
+  {
+    "name": "example-sma",
+    "seed": 717,
+    "ticks": 180,
+    "equity": 10729.48,
+    "investment": 24.52,
+    "maxDrawdownPct": 0.05
+  },
+  {
+    "name": "cash",
+    "seed": 2026,
+    "ticks": 180,
+    "equity": 10726.48,
+    "investment": 0,
+    "maxDrawdownPct": 0
+  },
+  {
+    "name": "equal-buy-hold",
+    "seed": 2026,
+    "ticks": 180,
+    "equity": 10728.94,
+    "investment": 172.3,
+    "maxDrawdownPct": 0.222
+  },
+  {
+    "name": "example-sma",
+    "seed": 2026,
+    "ticks": 180,
+    "equity": 10778.98,
+    "investment": 82.56,
+    "maxDrawdownPct": 0.022
+  },
+  {
+    "name": "cash",
+    "seed": 8888,
+    "ticks": 180,
+    "equity": 10726.48,
+    "investment": 0,
+    "maxDrawdownPct": 0
+  },
+  {
+    "name": "equal-buy-hold",
+    "seed": 8888,
+    "ticks": 180,
+    "equity": 10611.38,
+    "investment": 52.93,
+    "maxDrawdownPct": 0.198
+  },
+  {
+    "name": "example-sma",
+    "seed": 8888,
+    "ticks": 180,
+    "equity": 10726.48,
+    "investment": 0,
+    "maxDrawdownPct": 0
+  }
+]

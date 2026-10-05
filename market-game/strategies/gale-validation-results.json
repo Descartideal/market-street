@@ -1,0 +1,101 @@
+[
+  {
+    "count": 1000,
+    "seed": 9061,
+    "ticks": 200,
+    "equity": 12331.41,
+    "investment": 1607.08,
+    "income": 724.33,
+    "maxDrawdownPct": 0.038,
+    "incomeAdjustedDrawdownPct": 0.071,
+    "maxDebt": 0,
+    "marginCalls": 0,
+    "trades": 3891,
+    "positions": [
+      17,
+      26,
+      0,
+      0,
+      0
+    ],
+    "exitEquity": 12326.58,
+    "exitInvestment": 1602.25,
+    "exitUnsold": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "averageBotMs": 48.2,
+    "maxBotMs": 131,
+    "maxCalls": 45,
+    "winTick": 0
+  },
+  {
+    "count": 1000,
+    "seed": 703,
+    "ticks": 200,
+    "equity": 12250.31,
+    "investment": 1527.15,
+    "income": 723.16,
+    "maxDrawdownPct": 0.078,
+    "incomeAdjustedDrawdownPct": 0.114,
+    "maxDebt": 0,
+    "marginCalls": 0,
+    "trades": 4008,
+    "positions": [
+      21,
+      0,
+      42,
+      0,
+      19
+    ],
+    "exitEquity": 12240.94,
+    "exitInvestment": 1517.78,
+    "exitUnsold": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "averageBotMs": 52.1,
+    "maxBotMs": 83,
+    "maxCalls": 43,
+    "winTick": 0
+  },
+  {
+    "count": 1000,
+    "seed": 20261006,
+    "ticks": 200,
+    "equity": 12455.65,
+    "investment": 1741.8,
+    "income": 713.85,
+    "maxDrawdownPct": 0.034,
+    "incomeAdjustedDrawdownPct": 0.068,
+    "maxDebt": 0,
+    "marginCalls": 0,
+    "trades": 4356,
+    "positions": [
+      0,
+      28,
+      6,
+      14,
+      0
+    ],
+    "exitEquity": 12454.43,
+    "exitInvestment": 1740.58,
+    "exitUnsold": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "averageBotMs": 47.6,
+    "maxBotMs": 77,
+    "maxCalls": 44,
+    "winTick": 0
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "name": "tight",
+    "seed": 17,
+    "equity": 11498,
+    "profit": 814,
+    "dd": 0.11,
+    "debt": 4599,
+    "wins": 0,
+    "trades": 2184
+  },
+  {
+    "name": "tight",
+    "seed": 42,
+    "equity": 11650,
+    "profit": 1007,
+    "dd": 0.23,
+    "debt": 4657,
+    "wins": 0,
+    "trades": 2079
+  },
+  {
+    "name": "tight",
+    "seed": 123,
+    "equity": 11580,
+    "profit": 935,
+    "dd": 0.14,
+    "debt": 4630,
+    "wins": 0,
+    "trades": 2088
+  },
+  {
+    "name": "medium",
+    "seed": 17,
+    "equity": 10609,
+    "profit": -84,
+    "dd": 0.26,
+    "debt": 4255,
+    "wins": 0,
+    "trades": 166
+  },
+  {
+    "name": "medium",
+    "seed": 42,
+    "equity": 10730,
+    "profit": 73,
+    "dd": 0.24,
+    "debt": 4292,
+    "wins": 0,
+    "trades": 199
+  },
+  {
+    "name": "medium",
+    "seed": 123,
+    "equity": 10845,
+    "profit": 185,
+    "dd": 0.23,
+    "debt": 4331,
+    "wins": 0,
+    "trades": 253
+  },
+  {
+    "name": "wide",
+    "seed": 17,
+    "equity": 10560,
+    "profit": -118,
+    "dd": 0.25,
+    "debt": 4222,
+    "wins": 0,
+    "trades": 52
+  },
+  {
+    "name": "wide",
+    "seed": 42,
+    "equity": 10447,
+    "profit": -328,
+    "dd": 0.17,
+    "debt": 4178,
+    "wins": 0,
+    "trades": 22
+  },
+  {
+    "name": "wide",
+    "seed": 123,
+    "equity": 10622,
+    "profit": -83,
+    "dd": 0.22,
+    "debt": 4243,
+    "wins": 0,
+    "trades": 29
+  },
+  {
+    "name": "no-public",
+    "seed": 17,
+    "equity": 10507,
+    "profit": -220,
+    "dd": 0.1,
+    "debt": 4202,
+    "wins": 0,
+    "trades": 124
+  },
+  {
+    "name": "no-public",
+    "seed": 42,
+    "equity": 10248,
+    "profit": -433,
+    "dd": 0.24,
+    "debt": 4099,
+    "wins": 0,
+    "trades": 243
+  },
+  {
+    "name": "no-public",
+    "seed": 123,
+    "equity": 10514,
+    "profit": -208,
+    "dd": 0.14,
+    "debt": 4208,
+    "wins": 0,
+    "trades": 266
+  },
+  {
+    "name": "big",
+    "seed": 17,
+    "equity": 10535,
+    "profit": -141,
+    "dd": 0.31,
+    "debt": 8449,
+    "wins": 0,
+    "trades": 138
+  },
+  {
+    "name": "big",
+    "seed": 42,
+    "equity": 10410,
+    "profit": -310,
+    "dd": 0.24,
+    "debt": 8326,
+    "wins": 0,
+    "trades": 225
+  },
+  {
+    "name": "big",
+    "seed": 123,
+    "equity": 10396,
+    "profit": -315,
+    "dd": 0.34,
+    "debt": 8323,
+    "wins": 0,
+    "trades": 204
+  }
+]

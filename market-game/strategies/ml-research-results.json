@@ -1,0 +1,98 @@
+[
+  {
+    "name": "ml-full",
+    "seed": 17,
+    "equity": 12405,
+    "profit": 1496,
+    "dd": 0.25,
+    "debt": 19804
+  },
+  {
+    "name": "ml-full",
+    "seed": 42,
+    "equity": 12131,
+    "profit": 1179,
+    "dd": 0.19,
+    "debt": 19391
+  },
+  {
+    "name": "ml-full",
+    "seed": 123,
+    "equity": 12104,
+    "profit": 1185,
+    "dd": 0.24,
+    "debt": 19318
+  },
+  {
+    "name": "ml-half",
+    "seed": 17,
+    "equity": 12640,
+    "profit": 1700,
+    "dd": 0.23,
+    "debt": 20180
+  },
+  {
+    "name": "ml-half",
+    "seed": 42,
+    "equity": 12403,
+    "profit": 1459,
+    "dd": 0.19,
+    "debt": 19822
+  },
+  {
+    "name": "ml-half",
+    "seed": 123,
+    "equity": 12498,
+    "profit": 1581,
+    "dd": 0.24,
+    "debt": 19984
+  },
+  {
+    "name": "ml-full-L2",
+    "seed": 17,
+    "equity": 12217,
+    "profit": 1357,
+    "dd": 0.21,
+    "debt": 12189
+  },
+  {
+    "name": "ml-full-L2",
+    "seed": 42,
+    "equity": 12251,
+    "profit": 1409,
+    "dd": 0.21,
+    "debt": 12237
+  },
+  {
+    "name": "ml-full-L2",
+    "seed": 123,
+    "equity": 11907,
+    "profit": 1068,
+    "dd": 0.21,
+    "debt": 11894
+  },
+  {
+    "name": "ml-full-cash",
+    "seed": 17,
+    "equity": 12103,
+    "profit": 1398,
+    "dd": 0.12,
+    "debt": 0
+  },
+  {
+    "name": "ml-full-cash",
+    "seed": 42,
+    "equity": 12097,
+    "profit": 1391,
+    "dd": 0.09,
+    "debt": 0
+  },
+  {
+    "name": "ml-full-cash",
+    "seed": 123,
+    "equity": 12016,
+    "profit": 1332,
+    "dd": 0.12,
+    "debt": 0
+  }
+]

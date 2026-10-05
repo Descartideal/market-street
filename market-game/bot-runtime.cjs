@@ -1,0 +1,29 @@
+'use strict';
+const fs=require('node:fs/promises'),path=require('node:path'),{spawn}=require('node:child_process');
+const SDK=path.join(__dirname,'sdk');
+function capture(executable,args,options={},timeout=60000){return new Promise((resolve,reject)=>{const child=spawn(executable,args,{...options,windowsHide:true,stdio:['ignore','pipe','pipe']});let output='',ended=false;const timer=setTimeout(()=>{child.kill();finish(new Error('编译超时。'));},timeout);function finish(error,code){if(ended)return;ended=true;clearTimeout(timer);if(error)reject(error);else resolve({code,output});}child.stdout.on('data',d=>output=(output+d).slice(-120000));child.stderr.on('data',d=>output=(output+d).slice(-120000));child.on('error',e=>finish(e));child.on('close',code=>finish(null,code));});}
+async function findCompiler(){for(const candidate of [process.env.MARKET_CXX,'g++','C:\\MinGW\\bin\\g++.exe','C:\\msys64\\ucrt64\\bin\\g++.exe','clang++','C:\\llvm\\bin\\clang++.exe'].filter(Boolean)){try{const r=await capture(candidate,['--version'],{},10000);if(!r.code)return {path:candidate,name:r.output.split(/\r?\n/)[0]};}catch{}}return null;}
+class BotRuntime{
+ constructor(id){this.id=id;this.enabled=false;this.compiling=false;this.running=false;this.timeout=10;this.executable=null;this.source='';this.name='未导入';this.compiler=null;this.logs=[];this.history=[];this.child=null;}
+ status(){return {enabled:this.enabled,compiling:this.compiling,running:this.running,compiled:!!this.executable,name:this.name,compiler:this.compiler?.name??null,timeout:this.timeout,logs:this.logs.slice(0,20),history:this.history.slice(0,30)};}
+ async compile({source,sourcePath,name}){if(this.running||this.compiling)throw new Error('当前程序仍在运行或编译，请先停止并等待结束。');this.compiling=true;this.enabled=false;this.executable=null;
+  try{this.compiler=await findCompiler();if(!this.compiler)throw new Error('没有找到 C++23 编译器。请安装 g++ / clang++，或设置 MARKET_CXX。');const folder=path.join(__dirname,'runtime',this.id);await fs.mkdir(folder,{recursive:true});let include=folder;
+   if(sourcePath){if(typeof sourcePath!=='string'||!path.isAbsolute(sourcePath)||!sourcePath.toLowerCase().endsWith('.cpp'))throw new Error('请选择绝对路径的 .cpp 文件。');source=await fs.readFile(sourcePath,'utf8');include=path.dirname(sourcePath);name=path.basename(sourcePath);}
+   if(typeof source!=='string'||!source.trim()||Buffer.byteLength(source)>1024*1024)throw new Error('请输入或导入有效 C++ 源码，大小不超过 1 MB。');this.source=source;this.name=path.basename(name||'strategy.cpp');const src=path.join(folder,'strategy.cpp'),exe=path.join(folder,`strategy-${Date.now()}${process.platform==='win32'?'.exe':''}`);await fs.writeFile(src,source,'utf8');
+   // MinGW's linker can misinterpret Unicode absolute paths. Compile relative to
+   // the session directory and expose external headers through an ASCII junction.
+   let localInclude='.';if(include!==folder){const link=path.join(folder,'local-headers');try{await fs.unlink(link);}catch(e){if(e.code!=='ENOENT')throw e;}await fs.symlink(include,link,process.platform==='win32'?'junction':'dir');localInclude='local-headers';}
+   const args=['-std=c++23','-O2','-Wall','-Wextra','-I',path.relative(folder,SDK),'-I',localInclude,path.basename(src),'-o',path.basename(exe)];if(process.platform==='win32')args.splice(2,0,'-static-libgcc','-static-libstdc++');const r=await capture(this.compiler.path,args,{cwd:folder});this.logs.unshift({tick:null,text:r.output||'C++23 编译成功。'});if(r.code)throw new Error(r.output||'编译失败。');this.executable=exe;return {ok:true,message:'C++23 编译成功，可启用机器人。'};
+  }catch(error){this.logs.unshift({tick:null,text:error.message});throw error;}finally{this.compiling=false;}
+ }
+ stop(){this.enabled=false;this.child?.kill();}
+ run(tick,rpc){return new Promise(resolve=>{const started=Date.now();let output='',pending='',calls=0,done=false,error=null,outputBytes=0;this.running=true;const compilerFolder=this.compiler&&path.dirname(this.compiler.path);const env={...process.env,PATH:compilerFolder&&compilerFolder!=='.'?compilerFolder+path.delimiter+process.env.PATH:process.env.PATH,MARKET_TICK:String(tick)};
+  const child=spawn(this.executable,[],{cwd:path.dirname(this.executable),env,windowsHide:true,stdio:['pipe','pipe','pipe']});this.child=child;
+  const finish=(code)=>{if(done)return;done=true;if(pending)output=(output+pending).slice(-30000);clearTimeout(timer);this.running=false;this.child=null;const row={tick,ms:Date.now()-started,code,calls,error,output:output.slice(-30000)};this.history.unshift(row);this.logs.unshift({tick,text:error||row.output||`程序结束，${calls} 次接口调用。`});if(this.logs.length>100)this.logs.length=100;if(this.history.length>100)this.history.length=100;if(code!==0||error)this.enabled=false;resolve(row);};
+  const timer=setTimeout(()=>{error=`程序超过 ${this.timeout} 秒，本刻已停止，机器人已关闭。`;child.kill();},this.timeout*1000);
+  child.stdout.setEncoding('utf8');child.stderr.setEncoding('utf8');
+  child.stdout.on('data',chunk=>{outputBytes+=Buffer.byteLength(chunk);if(outputBytes>2*1024*1024){error='程序输出过多，已停止本刻。';child.kill();return;}pending+=chunk;let nl;while((nl=pending.indexOf('\n'))>=0){const line=pending.slice(0,nl).replace(/\r$/,'');pending=pending.slice(nl+1);if(line.startsWith('@market ')){calls++;let answer;try{if(calls>2000)throw new Error('每刻最多调用接口 2000 次。');const request=JSON.parse(line.slice(8));answer={ok:true,data:rpc(request.method,request.args||{})};}catch(e){answer={ok:false,error:e.message};}if(child.stdin.writable)child.stdin.write(JSON.stringify(answer)+'\n');}else output=(output+line+'\n').slice(-30000);}});
+  child.stderr.on('data',d=>{outputBytes+=Buffer.byteLength(d);output=(output+d).slice(-30000);if(outputBytes>2*1024*1024){error='程序输出过多，已停止本刻。';child.kill();}});child.stdin.on('error',()=>{});child.on('error',e=>{error=e.message;finish(-1);});child.on('close',(code,signal)=>{if(signal&&!error)error='已由玩家停止本刻程序。';finish(code??-1);});
+ });}
+}
+module.exports={BotRuntime,findCompiler};

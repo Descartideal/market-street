@@ -1,0 +1,22 @@
+# Native strategies and local game sessions
+market-game/runtime/
+market-game/backups/
+.publish/
+node_modules/
+*.exe
+*.dll
+*.o
+*.obj
+*.pdb
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+# Earlier screenshots are replaced by the curated gallery.
+/*.png
+market-game/ui-*.png
+# One-off UI migration scripts (not part of the launcher).
+market-game/upgrade-ui.cjs
+market-game/refine-ui.cjs
