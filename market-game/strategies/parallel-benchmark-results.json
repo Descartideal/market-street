@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-05T20:43:25.058Z",
+  "node": "v22.22.3",
+  "workerCount": 5,
+  "wallMs": 21.29219999999998,
+  "serialMs": 20.224899999999934,
+  "speedup": 0.9498736626558061,
+  "overlappingPairs": 10,
+  "intervals": [
+    {
+      "threadId": 1,
+      "start": 656.977,
+      "end": 663.4761
+    },
+    {
+      "threadId": 2,
+      "start": 660.7681,
+      "end": 669.7761
+    },
+    {
+      "threadId": 3,
+      "start": 661.6322,
+      "end": 669.849
+    },
+    {
+      "threadId": 4,
+      "start": 662.3761,
+      "end": 676.2626
+    },
+    {
+      "threadId": 5,
+      "start": 663.1566,
+      "end": 671.6434
+    }
+  ],
+  "fills": [
+    4000,
+    4000,
+    4000,
+    4000,
+    4000
+  ],
+  "equivalenceTicks": 8,
+  "equivalenceTraders": 5000
+}
