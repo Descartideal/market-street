@@ -1,0 +1,2489 @@
+{
+  "baselineCommit": "076c02e6ba119ae2404ebd642fa72226e4d5722f",
+  "collateralValuation": "latest-trade-price-unchanged",
+  "notes": [
+    "Returns mark holdings at final last price; no final liquidation.",
+    "Player trades alter the market path; seeds alone do not fix paths across different strategies.",
+    "Eight markets and four strategy seeds are samples, not a universal guarantee."
+  ],
+  "before": {
+    "date": "2026-10-05T21:16:37.459Z",
+    "count": 1000,
+    "ticks": 360,
+    "seeds": [
+      7,
+      17,
+      42,
+      91,
+      123,
+      314,
+      20261005,
+      20261006
+    ],
+    "summary": {
+      "cases": 8,
+      "meanIndexReturnPct": 15.09278814102564,
+      "allFiveUpCases": 8,
+      "negativeStockCases": 0,
+      "meanDrawdownPct": 0.6116307145364305,
+      "playerLossCases": 0,
+      "liquidatingCases": 0
+    },
+    "markets": [
+      {
+        "seed": 7,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          14.890000000000004,
+          11.015384615384605,
+          25.523809523809526,
+          16.896,
+          9.499999999999996
+        ],
+        "indexReturnPct": 15.565038827838817,
+        "maximumIndexDrawdownPct": 0.9193586680356636,
+        "upTicks": 227,
+        "downTicks": 133,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 6.523506593406592
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 9.842099633699641
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 13.576767765567755
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 15.565038827838817
+          }
+        ],
+        "minted": 1623909.722575047,
+        "initialShares": [
+          7659,
+          12045,
+          18919,
+          6054,
+          9677
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 25765.080520891417
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          12.450000000000006,
+          16.30769230769229,
+          11.071428571428577,
+          15.37599999999999,
+          13.00000000000001
+        ],
+        "indexReturnPct": 13.641024175824178,
+        "maximumIndexDrawdownPct": 0.39698456972508955,
+        "upTicks": 244,
+        "downTicks": 116,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 4.931149084249098
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 7.885704395604409
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 10.536277289377294
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 13.641024175824178
+          }
+        ],
+        "minted": 1638106.1759198145,
+        "initialShares": [
+          5044,
+          8009,
+          12675,
+          3970,
+          6397
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 10617.46712669592
+          }
+        }
+      },
+      {
+        "seed": 42,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          21.799999999999997,
+          24.98461538461538,
+          31.166666666666675,
+          11.192000000000002,
+          23.275000000000002
+        ],
+        "indexReturnPct": 22.4836564102564,
+        "maximumIndexDrawdownPct": 0.9175831429032111,
+        "upTicks": 228,
+        "downTicks": 132,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 14.570684615384621
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 17.14734065934067
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 18.79186996336997
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 22.4836564102564
+          }
+        ],
+        "minted": 1741556.5135093979,
+        "initialShares": [
+          9043,
+          14164,
+          22190,
+          7140,
+          11407
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 70814.74440527186
+          }
+        }
+      },
+      {
+        "seed": 91,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          16.680000000000007,
+          20.046153846153846,
+          10.214285714285708,
+          25.592000000000013,
+          8.925000000000004
+        ],
+        "indexReturnPct": 16.29148791208792,
+        "maximumIndexDrawdownPct": 0.5197870614311317,
+        "upTicks": 244,
+        "downTicks": 116,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 4.619812820512825
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 9.296239926739913
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 12.067263369963378
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 16.29148791208792
+          }
+        ],
+        "minted": 1649353.2067581047,
+        "initialShares": [
+          4014,
+          6416,
+          10196,
+          3119,
+          5107
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 14072.499999999967
+          }
+        }
+      },
+      {
+        "seed": 123,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          13.729999999999997,
+          24.630769230769232,
+          21.595238095238088,
+          8.776000000000007,
+          11.012500000000003
+        ],
+        "indexReturnPct": 15.94890146520147,
+        "maximumIndexDrawdownPct": 0.7530202472054159,
+        "upTicks": 234,
+        "downTicks": 126,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 8.189851282051276
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 11.047177655677665
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 13.121790109890119
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 15.94890146520147
+          }
+        ],
+        "minted": 1698334.6666037182,
+        "initialShares": [
+          6953,
+          10945,
+          17236,
+          5488,
+          8808
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 13756.181655215134
+          }
+        }
+      },
+      {
+        "seed": 314,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          9.630000000000006,
+          24.93846153846153,
+          7.666666666666666,
+          11.928000000000004,
+          9.474999999999989
+        ],
+        "indexReturnPct": 12.72762564102563,
+        "maximumIndexDrawdownPct": 1.0117008638524827,
+        "upTicks": 245,
+        "downTicks": 115,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 4.345343223443221
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 5.848383882783881
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 9.154613553113533
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 12.72762564102563
+          }
+        ],
+        "minted": 1645782.9051892837,
+        "initialShares": [
+          4069,
+          6501,
+          10363,
+          3164,
+          5188
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 12065.133638193518
+          }
+        }
+      },
+      {
+        "seed": 20261005,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          8.699999999999996,
+          19.73846153846153,
+          10.595238095238102,
+          12.704000000000004,
+          9.087500000000004
+        ],
+        "indexReturnPct": 12.165039926739919,
+        "maximumIndexDrawdownPct": 0.24355083180896964,
+        "upTicks": 232,
+        "downTicks": 128,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 4.289940659340652
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 6.381804761904752
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 9.128882417582428
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 12.165039926739919
+          }
+        ],
+        "minted": 1654783.600987037,
+        "initialShares": [
+          3828,
+          6111,
+          9770,
+          2968,
+          4870
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 7987.728209999998
+          }
+        }
+      },
+      {
+        "seed": 20261006,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          11.37999999999999,
+          19.446153846153848,
+          6.999999999999984,
+          13.183999999999996,
+          8.587500000000015
+        ],
+        "indexReturnPct": 11.919530769230779,
+        "maximumIndexDrawdownPct": 0.13106033132948003,
+        "upTicks": 238,
+        "downTicks": 122,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 4.383336996336995
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 6.4710461538461495
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 8.853256776556794
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 11.919530769230779
+          }
+        ],
+        "minted": 1649967.9145537491,
+        "initialShares": [
+          4190,
+          6676,
+          10607,
+          3259,
+          5340
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 18305.656502188493
+          }
+        }
+      }
+    ],
+    "strategies": [
+      {
+        "seed": 7,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          15.579999999999995,
+          10.33846153846154,
+          31.857142857142872,
+          13.783999999999995,
+          25.425000000000008
+        ],
+        "indexReturnPct": 19.396920879120884,
+        "maximumIndexDrawdownPct": 5.645708033181052,
+        "upTicks": 233,
+        "downTicks": 127,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 12.671169963369945
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 15.114357875457873
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 17.279706959706953
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 19.396920879120884
+          }
+        ],
+        "minted": 1628347.6431955462,
+        "initialShares": [
+          7659,
+          12045,
+          18919,
+          6054,
+          9677
+        ],
+        "player": {
+          "equity": 7946.019772646585,
+          "investment": -3135.24373967547,
+          "debt": 91949.86322765343,
+          "peakLeverage": 13.33089576656881,
+          "liquidating": false,
+          "completedGoal": true
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 37030.04678958332
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          11.569999999999991,
+          17.846153846153847,
+          18.119047619047613,
+          13.888000000000012,
+          16.412499999999987
+        ],
+        "indexReturnPct": 15.567140293040293,
+        "maximumIndexDrawdownPct": 0.4396480224754473,
+        "upTicks": 248,
+        "downTicks": 112,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 6.4948501831501915
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 8.852891208791224
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 11.827851282051283
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 15.567140293040293
+          }
+        ],
+        "minted": 1641741.2365547395,
+        "initialShares": [
+          5044,
+          8009,
+          12675,
+          3970,
+          6397
+        ],
+        "player": {
+          "equity": 8051.486011145273,
+          "investment": -3029.7802047781447,
+          "debt": 82687.00149200554,
+          "peakLeverage": 13.317544124575816,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 12212.542268178295
+          }
+        }
+      },
+      {
+        "seed": 42,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          16.799999999999994,
+          33.55384615384616,
+          34.119047619047606,
+          9.007999999999994,
+          38.6625
+        ],
+        "indexReturnPct": 26.428678754578748,
+        "maximumIndexDrawdownPct": 1.0403371694174823,
+        "upTicks": 252,
+        "downTicks": 108,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 16.325292307692308
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 20.018931501831496
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 23.02610073260074
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 26.428678754578748
+          }
+        ],
+        "minted": 1747107.7067962692,
+        "initialShares": [
+          9043,
+          14164,
+          22190,
+          7140,
+          11407
+        ],
+        "player": {
+          "equity": 12641.968103773863,
+          "investment": 1560.7042882104695,
+          "debt": 134861.34939937695,
+          "peakLeverage": 13.216882673261313,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 86845.29843684127
+          }
+        }
+      },
+      {
+        "seed": 91,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          6.790000000000007,
+          18.753846153846144,
+          9.26190476190476,
+          10.40000000000001,
+          9.299999999999997
+        ],
+        "indexReturnPct": 10.901150183150188,
+        "maximumIndexDrawdownPct": 0.15161782129630152,
+        "upTicks": 241,
+        "downTicks": 119,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 4.340998901098869
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 5.777944688644676
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 7.540474725274726
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 10.901150183150188
+          }
+        ],
+        "minted": 1651573.1789721043,
+        "initialShares": [
+          4014,
+          6416,
+          10196,
+          3119,
+          5107
+        ],
+        "player": {
+          "equity": 5232.1307723979335,
+          "investment": -5849.130036682649,
+          "debt": 49914.70673075288,
+          "peakLeverage": 13.30080506910758,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 0,
+            "investment": 9326.429999999964
+          }
+        }
+      },
+      {
+        "seed": 7,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          99.58,
+          368.53846153846155,
+          516.9047619047619,
+          292.808,
+          108.0625
+        ],
+        "indexReturnPct": 277.1787446886447,
+        "maximumIndexDrawdownPct": 2.5037300659320194,
+        "upTicks": 322,
+        "downTicks": 38,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 16.994061172161178
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 47.36019633699631
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 119.68178205128206
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 277.1787446886447
+          }
+        ],
+        "minted": 1683273.4733828101,
+        "initialShares": [
+          7659,
+          12045,
+          18919,
+          6054,
+          9677
+        ],
+        "player": {
+          "equity": 4440013.988489715,
+          "investment": 4428932.719873432,
+          "debt": 3461808.6190135214,
+          "peakLeverage": 26.545163803994303,
+          "liquidating": false,
+          "completedGoal": true
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 57679.49871942405,
+            "investment": 419815.92367696075
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          1047.6,
+          794.0461538461537,
+          686.452380952381,
+          1217.264,
+          725.975
+        ],
+        "indexReturnPct": 894.2675069597069,
+        "maximumIndexDrawdownPct": 1.3198678620200188,
+        "upTicks": 341,
+        "downTicks": 19,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 13.035489377289377
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 70.66265567765566
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 253.76788278388273
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 894.2675069597069
+          }
+        ],
+        "minted": 1680672.7076258361,
+        "initialShares": [
+          5044,
+          8009,
+          12675,
+          3970,
+          6397
+        ],
+        "player": {
+          "equity": 9912876.748789048,
+          "investment": 9901795.480172765,
+          "debt": 2524390.07871401,
+          "peakLeverage": 26.96855124212373,
+          "liquidating": false,
+          "completedGoal": true
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 227.03523809214633,
+            "investment": 646615.9248679669
+          }
+        }
+      },
+      {
+        "seed": 42,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          702.77,
+          1099.3692307692309,
+          902.142857142857,
+          632.088,
+          1255.9125
+        ],
+        "indexReturnPct": 918.4565175824177,
+        "maximumIndexDrawdownPct": 2.4792545067230054,
+        "upTicks": 329,
+        "downTicks": 31,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 35.803165201465205
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 104.4311915750916
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 318.5508322344322
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 918.4565175824177
+          }
+        ],
+        "minted": 1829214.6983893362,
+        "initialShares": [
+          9043,
+          14164,
+          22190,
+          7140,
+          11407
+        ],
+        "player": {
+          "equity": 16078187.576752495,
+          "investment": 16067106.308136212,
+          "debt": 5236761.120750442,
+          "peakLeverage": 14.641630322899973,
+          "liquidating": false,
+          "completedGoal": true
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 533047.7253600523,
+            "investment": 2440135.1476223674
+          }
+        }
+      },
+      {
+        "seed": 91,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          616.32,
+          603.7692307692308,
+          851.8333333333333,
+          527.088,
+          621.7125
+        ],
+        "indexReturnPct": 644.144612820513,
+        "maximumIndexDrawdownPct": 1.5846029777312642,
+        "upTicks": 337,
+        "downTicks": 23,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 10.80495567765567
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 40.40229267399269
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 166.6338523809524
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 644.144612820513
+          }
+        ],
+        "minted": 1685465.9853274035,
+        "initialShares": [
+          4014,
+          6416,
+          10196,
+          3119,
+          5107
+        ],
+        "player": {
+          "equity": 6709947.267656327,
+          "investment": 6698865.999040044,
+          "debt": 1901134.409846851,
+          "peakLeverage": 32.231311583271065,
+          "liquidating": false,
+          "completedGoal": true
+        },
+        "analystVariants": {
+          "legacy": {
+            "count": 30,
+            "debt": 60556.13551650781,
+            "investment": 593681.2375389547
+          }
+        }
+      }
+    ],
+    "strategySummary": {
+      "10": {
+        "cases": 4,
+        "meanIndexReturnPct": 18.07347252747253,
+        "allFiveUpCases": 4,
+        "negativeStockCases": 0,
+        "meanDrawdownPct": 1.8193277615925707,
+        "playerLossCases": 3,
+        "liquidatingCases": 0
+      },
+      "100": {
+        "cases": 4,
+        "meanIndexReturnPct": 683.5118455128205,
+        "allFiveUpCases": 4,
+        "negativeStockCases": 0,
+        "meanDrawdownPct": 1.971863853101577,
+        "playerLossCases": 0,
+        "liquidatingCases": 0
+      }
+    }
+  },
+  "after": {
+    "date": "2026-10-05T21:29:34.459Z",
+    "count": 1000,
+    "ticks": 360,
+    "seeds": [
+      7,
+      17,
+      42,
+      91,
+      123,
+      314,
+      20261005,
+      20261006
+    ],
+    "summary": {
+      "cases": 8,
+      "meanIndexReturnPct": 1.4481127289377351,
+      "allFiveUpCases": 1,
+      "negativeStockCases": 18,
+      "meanDrawdownPct": 3.701740992328392,
+      "playerLossCases": 0,
+      "liquidatingCases": 0
+    },
+    "markets": [
+      {
+        "seed": 7,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          -3.3599999999999963,
+          -1.015384615384607,
+          0.4761904761904745,
+          -10.848000000000003,
+          -3.424999999999989
+        ],
+        "indexReturnPct": -3.6344388278388373,
+        "maximumIndexDrawdownPct": 4.154108525261002,
+        "upTicks": 169,
+        "downTicks": 191,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -2.1061578754578703
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": -3.1844666666666632
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": -1.6647128205128148
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": -3.6344388278388373
+          }
+        ],
+        "minted": 1624244.9491152472,
+        "initialShares": [
+          7659,
+          12045,
+          18919,
+          6054,
+          9677
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": -23.170000000003938
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 61.856783443900895
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": -496.12942392650507
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -115.78999999999905
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 273.73999999995203
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 0,
+            "investment": -1504.8269724849106
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -62.520000000003165
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 27.24999999999227
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          -11.049999999999994,
+          -8.169230769230772,
+          0.3571428571428559,
+          -8.016000000000002,
+          5.58749999999999
+        ],
+        "indexReturnPct": -4.258117582417564,
+        "maximumIndexDrawdownPct": 6.389662761619896,
+        "upTicks": 181,
+        "downTicks": 179,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -1.4093402930402954
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": -3.445846153846155
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": -5.448322344322354
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": -4.258117582417564
+          }
+        ],
+        "minted": 1638411.528056118,
+        "initialShares": [
+          5044,
+          8009,
+          12675,
+          3970,
+          6397
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": -286.3800000000018
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": -38.46999999999866
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": -90.86582347010028
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -260.37000000001353
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 171.22000000000781
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 5880.434528613377,
+            "investment": -2072.3623677449264
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -157.75000000000284
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": -30.67000000000189
+          }
+        }
+      },
+      {
+        "seed": 42,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          0.44999999999999485,
+          4.476923076923067,
+          6.261904761904757,
+          3.3760000000000012,
+          7.574999999999998
+        ],
+        "indexReturnPct": 4.427965567765568,
+        "maximumIndexDrawdownPct": 5.311745177768423,
+        "upTicks": 197,
+        "downTicks": 163,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -0.29957069597068564
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 2.7291739926739833
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 3.146053846153829
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 4.427965567765568
+          }
+        ],
+        "minted": 1744413.7421570937,
+        "initialShares": [
+          9043,
+          14164,
+          22190,
+          7140,
+          11407
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 2303.4023959920987
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 1065.800000000016
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 73.54075667797429
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 129.2300000000041
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 238.00999999995508
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 525.6222827620263,
+            "investment": -13280.777131303297
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 101.06484499999783
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 142.54999999999802
+          }
+        }
+      },
+      {
+        "seed": 91,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          17.32,
+          -15.5076923076923,
+          9.285714285714274,
+          10.143999999999998,
+          -1.6125000000000056
+        ],
+        "indexReturnPct": 3.925904395604407,
+        "maximumIndexDrawdownPct": 1.6652976287646837,
+        "upTicks": 195,
+        "downTicks": 165,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 0.8497813186812975
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 3.4319098901098855
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 3.6565743589743516
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 3.925904395604407
+          }
+        ],
+        "minted": 1650773.6120501475,
+        "initialShares": [
+          4014,
+          6416,
+          10196,
+          3119,
+          5107
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 409.3000000000043
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 700.6429600131933
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 4875.9115571024895,
+            "investment": -306.45395358449423
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -48.179999999997335
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 392.2299999999998
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 24750.668968409645,
+            "investment": -787.7060905120595
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -248.2399999999991
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 98.74999999999943
+          }
+        }
+      },
+      {
+        "seed": 123,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          -3.0000000000000027,
+          -14.81538461538462,
+          12.261904761904763,
+          7.543999999999995,
+          17.100000000000005
+        ],
+        "indexReturnPct": 3.818104029304026,
+        "maximumIndexDrawdownPct": 3.8801703446705638,
+        "upTicks": 182,
+        "downTicks": 178,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 1.3099703296703513
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 3.2544304029304083
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 3.013116117216108
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 3.818104029304026
+          }
+        ],
+        "minted": 1699602.601128492,
+        "initialShares": [
+          6953,
+          10945,
+          17236,
+          5488,
+          8808
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 1158.2100000000733
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 389.3789791143248
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 144.54165562140997
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 141.85999999999717
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 220.43999999999778
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 11326.180021647528,
+            "investment": -163.713422167447
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 80.17000000000053
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 300.20558960751464
+          }
+        }
+      },
+      {
+        "seed": 314,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          -2.090000000000003,
+          7.723076923076921,
+          1.6904761904761978,
+          -3.608,
+          -2.3375000000000035
+        ],
+        "indexReturnPct": 0.2756106227106425,
+        "maximumIndexDrawdownPct": 3.7436877788406764,
+        "upTicks": 177,
+        "downTicks": 183,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 1.3766644688644636
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 3.5151362637362737
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 3.520533333333331
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 0.2756106227106425
+          }
+        ],
+        "minted": 1647936.3825136584,
+        "initialShares": [
+          4069,
+          6501,
+          10363,
+          3164,
+          5188
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 128.73999999995237
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 171.69878112116407
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": -151.48205024134927
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -115.38999999999476
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 98.29000000002236
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 0,
+            "investment": -711.2403110015618
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -37.90329941613652
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 158.78838481877256
+          }
+        }
+      },
+      {
+        "seed": 20261005,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          13.749999999999996,
+          2.230769230769236,
+          6.714285714285717,
+          -6.103999999999998,
+          -4.1874999999999885
+        ],
+        "indexReturnPct": 2.4807109890109924,
+        "maximumIndexDrawdownPct": 2.1818964191211765,
+        "upTicks": 177,
+        "downTicks": 183,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -0.06751538461537976
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": -2.0258527472527432
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 0.1260890109890056
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 2.4807109890109924
+          }
+        ],
+        "minted": 1656360.0845803297,
+        "initialShares": [
+          3828,
+          6111,
+          9770,
+          2968,
+          4870
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 160.40999999999815
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 108.87000000000035
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 1774.2150061115942,
+            "investment": 182.25447734118382
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -41.94999999999368
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 192.87000000001058
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 6488.754121970228,
+            "investment": -1295.5697244148903
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -68.71000000000367
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 295.050000000007
+          }
+        }
+      },
+      {
+        "seed": 20261006,
+        "ticks": 360,
+        "leverage": 0,
+        "returns": [
+          -0.6599999999999939,
+          18.41538461538461,
+          7.571428571428562,
+          5.544000000000016,
+          -8.125000000000004
+        ],
+        "indexReturnPct": 4.549162637362647,
+        "maximumIndexDrawdownPct": 2.287359302580716,
+        "upTicks": 191,
+        "downTicks": 169,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 2.6097293040292957
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 2.72968608058608
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 4.713252380952393
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 4.549162637362647
+          }
+        ],
+        "minted": 1651266.6229365175,
+        "initialShares": [
+          4190,
+          6676,
+          10607,
+          3259,
+          5340
+        ],
+        "player": {
+          "equity": 11466.159225458747,
+          "investment": 3.865352482534945e-12,
+          "debt": 0,
+          "peakLeverage": 1,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 381.1700000000018
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 429.2699999999968
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 1659.8889367710394
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -1335.6500000001583
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 97.31999999999948
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 8424.542182393274,
+            "investment": 571.9393635470623
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 47.19523303583833
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 129.37999999999988
+          }
+        }
+      }
+    ],
+    "strategies": [
+      {
+        "seed": 7,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          -3.63,
+          4.215384615384599,
+          22.21428571428572,
+          6.920000000000015,
+          -0.08749999999999591
+        ],
+        "indexReturnPct": 5.926434065934072,
+        "maximumIndexDrawdownPct": 2.33578273316436,
+        "upTicks": 194,
+        "downTicks": 166,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -1.3018626373626274
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": -1.5184241758241734
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": -0.5545043956043827
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 5.926434065934072
+          }
+        ],
+        "minted": 1630401.1899109145,
+        "initialShares": [
+          7659,
+          12045,
+          18919,
+          6054,
+          9677
+        ],
+        "player": {
+          "equity": 4293.747503726219,
+          "investment": -6787.508803104096,
+          "debt": 38634.03999942459,
+          "peakLeverage": 13.275914273701995,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 391.0400000000002
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 804.4200000000022
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 105968.75263097421,
+            "investment": 23318.189305793996
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 119.23000000000411
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 657.650000000007
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 8001.7994614248655,
+            "investment": 2651.810847893137
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 91.05999999999949
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 471.5937619125723
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          -2.749999999999997,
+          -0.19999999999998908,
+          -1.3095238095238049,
+          14.152000000000008,
+          6.787500000000013
+        ],
+        "indexReturnPct": 3.335995238095224,
+        "maximumIndexDrawdownPct": 2.962820926262344,
+        "upTicks": 184,
+        "downTicks": 176,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 2.7166589743589764
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 1.6081230769230626
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 3.6647666666666634
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 3.335995238095224
+          }
+        ],
+        "minted": 1641629.6374985357,
+        "initialShares": [
+          5044,
+          8009,
+          12675,
+          3970,
+          6397
+        ],
+        "player": {
+          "equity": 1982.5769713357477,
+          "investment": -9098.675435524552,
+          "debt": 19673.486028964267,
+          "peakLeverage": 13.314960713601145,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": -16.540000000001896
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 101.30000000000405
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": -200.15414937689013
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 144.40999999999053
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 199.08000000004603
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 11532.179182276266,
+            "investment": -1862.4380549177222
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 102.10000000000213
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 136.2670598709733
+          }
+        }
+      },
+      {
+        "seed": 42,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          0.8899999999999908,
+          14.261538461538459,
+          2.523809523809528,
+          4.3119999999999825,
+          1.8124999999999947
+        ],
+        "indexReturnPct": 4.759969597069613,
+        "maximumIndexDrawdownPct": 3.5484116418749156,
+        "upTicks": 195,
+        "downTicks": 165,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -1.421021611721618
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 3.7249908424908273
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 5.133303296703295
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 4.759969597069613
+          }
+        ],
+        "minted": 1744113.3830982633,
+        "initialShares": [
+          9043,
+          14164,
+          22190,
+          7140,
+          11407
+        ],
+        "player": {
+          "equity": 2716.698067329202,
+          "investment": -8364.553443763529,
+          "debt": 27588.747635641605,
+          "peakLeverage": 13.32751240802859,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": -3923.096113059
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 1810.7531676478877
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": -628.7395975571603
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 163.9900000000007
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 582.2500000000327
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 0,
+            "investment": -9436.075955962975
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 192.74999999999864
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 181.09000000000378
+          }
+        }
+      },
+      {
+        "seed": 91,
+        "ticks": 360,
+        "leverage": 10,
+        "returns": [
+          0.7800000000000029,
+          -10.430769230769233,
+          3.7619047619047663,
+          -6.887999999999995,
+          21.275
+        ],
+        "indexReturnPct": 1.6996271062271084,
+        "maximumIndexDrawdownPct": 2.7654266476615397,
+        "upTicks": 175,
+        "downTicks": 185,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 0.9059838827838673
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 1.5297347985347987
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": -0.1737391941391997
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 1.6996271062271084
+          }
+        ],
+        "minted": 1652719.8583119751,
+        "initialShares": [
+          4014,
+          6416,
+          10196,
+          3119,
+          5107
+        ],
+        "player": {
+          "equity": 1483.779387514871,
+          "investment": -9597.47151697486,
+          "debt": 16165.908115635939,
+          "peakLeverage": 13.32891167974058,
+          "liquidating": false,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 230.9299999999896
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 146.9799999999941
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 351.9042385016222
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -91.21000000000214
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 300.1500000000276
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 24564.932338926283,
+            "investment": -2156.315176849709
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -250.0700000000022
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 13.540000000003772
+          }
+        }
+      },
+      {
+        "seed": 7,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          594.26,
+          969.4615384615383,
+          550.6666666666666,
+          995.144,
+          484.15
+        ],
+        "indexReturnPct": 718.736441025641,
+        "maximumIndexDrawdownPct": 70.79904661139895,
+        "upTicks": 234,
+        "downTicks": 126,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 34.17429340659339
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 217.02170439560442
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 356.11260366300365
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 718.736441025641
+          }
+        ],
+        "minted": 1766539.1065497152,
+        "initialShares": [
+          7659,
+          12045,
+          18919,
+          6054,
+          9677
+        ],
+        "player": {
+          "equity": 22664393.355080154,
+          "investment": 22653312.086463872,
+          "debt": 7165853.922422782,
+          "peakLeverage": 113.24361947113809,
+          "liquidating": false,
+          "completedGoal": true
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 4501.027542534015
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 130.6100000000015
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 54829.72953393476
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 176.22999999999706
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 1727.8800000000238
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 0,
+            "investment": 59829.62559779426
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 24.429999999999836
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 365.93999999999227
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          7.879999999999998,
+          -13.630769230769236,
+          -2.523809523809528,
+          13.992000000000004,
+          19.124999999999993
+        ],
+        "indexReturnPct": 4.9684842490842485,
+        "maximumIndexDrawdownPct": 5.5435716225496705,
+        "upTicks": 184,
+        "downTicks": 176,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": -1.336647619047615
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": -0.44001391941392853
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 0.1428102564102529
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 4.9684842490842485
+          }
+        ],
+        "minted": 1641371.8028283503,
+        "initialShares": [
+          5044,
+          8009,
+          12675,
+          3970,
+          6397
+        ],
+        "player": {
+          "equity": -12241.425653375063,
+          "investment": -23322.449063157674,
+          "debt": 12241.42565337507,
+          "peakLeverage": 120.08323074916055,
+          "liquidating": true,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 76.19000000000244
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 235.86218405367072
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": -375.2484058716956
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 168.6600000000035
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 171.08000000000845
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 4151.371971396595,
+            "investment": -1380.380575813174
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 102.1464795131426
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 82.57232700453415
+          }
+        }
+      },
+      {
+        "seed": 42,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          19.330000000000002,
+          10.199999999999987,
+          -13.071428571428578,
+          -0.09600000000000719,
+          5.099999999999993
+        ],
+        "indexReturnPct": 4.292514285714288,
+        "maximumIndexDrawdownPct": 6.0430472208581225,
+        "upTicks": 194,
+        "downTicks": 166,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 6.679535164835171
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 5.416168131868138
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 4.748616483516477
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 4.292514285714288
+          }
+        ],
+        "minted": 1745795.1169867073,
+        "initialShares": [
+          9043,
+          14164,
+          22190,
+          7140,
+          11407
+        ],
+        "player": {
+          "equity": -38388.309935871446,
+          "investment": -49469.3282437037,
+          "debt": 38388.30993587146,
+          "peakLeverage": 116.976736850377,
+          "liquidating": true,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 6398.230000003079
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 2329.8536730394953
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 513.498046249056
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": 312.72999999999047
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 1647.8799999998932
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 33960.85721032311,
+            "investment": -20978.401702809195
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": 400.0756105021302
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 154.7499999999975
+          }
+        }
+      },
+      {
+        "seed": 91,
+        "ticks": 360,
+        "leverage": 100,
+        "returns": [
+          2.750000000000008,
+          3.6769230769230887,
+          -2.0952380952381056,
+          2.5599999999999845,
+          -1.2374999999999914
+        ],
+        "indexReturnPct": 1.1308369963370035,
+        "maximumIndexDrawdownPct": 4.565395983140286,
+        "upTicks": 187,
+        "downTicks": 173,
+        "checkpoints": [
+          {
+            "tick": 90,
+            "indexReturnPct": 0.5624904761904803
+          },
+          {
+            "tick": 180,
+            "indexReturnPct": 2.822152014652035
+          },
+          {
+            "tick": 270,
+            "indexReturnPct": 2.4937593406593406
+          },
+          {
+            "tick": 360,
+            "indexReturnPct": 1.1308369963370035
+          }
+        ],
+        "minted": 1652341.318084251,
+        "initialShares": [
+          4014,
+          6416,
+          10196,
+          3119,
+          5107
+        ],
+        "player": {
+          "equity": -9629.428979623533,
+          "investment": -20710.44698742578,
+          "debt": 9629.428979623533,
+          "peakLeverage": 127.70819913577586,
+          "liquidating": true,
+          "completedGoal": false
+        },
+        "analystVariants": {
+          "趋势杠杆": {
+            "count": 4,
+            "debt": 0,
+            "investment": 134.21999999995865
+          },
+          "价值纠偏": {
+            "count": 4,
+            "debt": 0,
+            "investment": 297.4735565260956
+          },
+          "波动突破": {
+            "count": 4,
+            "debt": 0,
+            "investment": 181.2818688014391
+          },
+          "均值反转": {
+            "count": 4,
+            "debt": 0,
+            "investment": -47.53000000000537
+          },
+          "防御轮动": {
+            "count": 4,
+            "debt": 0,
+            "investment": 206.02999999998747
+          },
+          "极端动量": {
+            "count": 4,
+            "debt": 6696.154644024645,
+            "investment": -3164.5420162258874
+          },
+          "逆势抄底": {
+            "count": 3,
+            "debt": 0,
+            "investment": -124.07000000002472
+          },
+          "盘口跟随": {
+            "count": 3,
+            "debt": 0,
+            "investment": 69.93774337287061
+          }
+        }
+      }
+    ],
+    "strategySummary": {
+      "10": {
+        "cases": 4,
+        "meanIndexReturnPct": 3.9305065018315046,
+        "allFiveUpCases": 1,
+        "negativeStockCases": 7,
+        "meanDrawdownPct": 2.90311048724079,
+        "playerLossCases": 4,
+        "liquidatingCases": 0
+      },
+      "100": {
+        "cases": 4,
+        "meanIndexReturnPct": 182.28206913919416,
+        "allFiveUpCases": 1,
+        "negativeStockCases": 6,
+        "meanDrawdownPct": 21.73776535948676,
+        "playerLossCases": 3,
+        "liquidatingCases": 3
+      }
+    }
+  }
+}

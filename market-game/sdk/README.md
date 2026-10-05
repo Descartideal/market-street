@@ -89,7 +89,7 @@ int main() {
 
 `Account` 字段：`tick, cash, available_cash, equity, debt, investment, borrow_capacity, margin_ratio, finance_costs, total_income, liquidating, shares`。`equity` 已扣负债；`investment` 已剔除被动收入并包含融资成本。账户接口保留内部精度，网页金额摘要显示到分。
 
-`Stock` 字段：`symbol, price, public_value, previous, volume, turnover, indicators`。`previous` 为上一完成周期收盘价；`public_value` 为所有人可见的公开估值，不能当作内部价格。
+`Stock` 字段：`symbol, price, public_value, previous, volume, turnover, indicators, supply`。`previous` 为上一完成周期收盘价；`public_value` 为所有人可见的公开估值，不能当作内部价格。
 
 `Indicators` 字段：`sma5, sma20, ema12, rsi14, volatility, regression_slope, regression_r2, bollinger_upper, bollinger_lower, z_score, imbalance, momentum`。`volatility` 是最多 60 个已完成周期的对数收益标准差；回归使用最多 24 个收盘价，RSI 使用最多 14 次变化，布林带使用最多 20 个收盘价；样本不足时使用已有样本。`imbalance` 是买卖前 10 笔挂单的股数差除以总股数，范围 −1 到 1。各指标是明确实现的游戏指标，不是未来预测保证。
 
@@ -144,3 +144,5 @@ double last = market::memory_get("state")["last_price"].number();
 `market_info()` 增加 `performance`（backend、device、discrete、riskMs、tickMs、gpuKernelMs 等）与 `acceleration`；`rules()` 包含实际利率、随玩家初始资金变化的目标、maxTraders=100000、wealthDistribution、speedOpportunities=3。网页状态只传少量盘口/交易者，但这里的 `snapshot()`、`traders(0)`、`raw_book(...,0)` 和档案接口仍返回完整公开数据。十万人含玩家共 100001 个账户，可用 count=0 取全部或分页查询。
 
 NPC 可以有负债，`trader_info()` / `traders()` 的 debt、financeCosts、leverageLimit、liquidating 和净资产均实际计入融资；SDK 的交易/借款函数始终只操作玩家，不能替 NPC 下单。NPC 的借款意愿、风险情景或内幕估值不作为公开数据暴露。
+
+`Stock::supply`（`long long`）是开局生成的本局该股总股数，之后交易只转移股份，不增发。公开交易者 JSON 的 `analystStyle` 表示分析派的八种风格之一，其他类型为空。高速批量推进仍每刻启动一个全新的策略程序，不会合并或跳过策略回合。
