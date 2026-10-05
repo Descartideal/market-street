@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const {GameSession}=require('../controller.cjs');
-const s=new GameSession('data-test',{count:50,seed:17}),m=s.market;
+const s=new GameSession('data-test',{count:50,seed:17}),m=s.market;const rules=s.rpc('get_rules');assert.equal(rules.marginPolicy.fixedThrough,3);assert.equal(rules.marginPolicy.fixedRecovery,.35);assert.equal(rules.maxLeverage,100);
 for(let i=0;i<100;i++)m.step();
 const forbidden=['fair','fairHistory','seed','valuationBias','risk','bias','focus','technicalCache','actionSequence'];
 const check=x=>{if(!x||typeof x!=='object')return;for(const [key,value]of Object.entries(x)){assert.ok(!forbidden.includes(key),'Private NPC field: '+key);check(value);}};
