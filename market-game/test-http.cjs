@@ -10,5 +10,16 @@ async function main(){const request=async(route,data,extra={})=>fetch(base+route
  const ledger=await (await request('/api/query?id='+id,{method:'get_ledger',args:{count:0}})).json();assert.ok(ledger.some(r=>r.type==='borrow'));assert.ok(ledger.some(r=>r.type==='income'));assert.ok(ledger.some(r=>r.type==='loan_interest'));
  const own=await (await request('/api/query?id='+id,{method:'get_player'})).json();assert.equal(own.positions.length,5);assert.equal(own.cost.length,5);
  const publicState=await (await request('/api/query?id='+id,{method:'get_snapshot'})).json();assert.equal(publicState.traders.length,51);assert.ok(!Object.hasOwn(publicState.traders[0],'valuationBias'));assert.ok(!Object.hasOwn(publicState.stocks[0],'fair'));
- console.log('HTTP: configuration, SDK, borrowing, process control, round lock, CSV, complete personal ledger and public snapshot passed.');}
+ const batchCreated=await (await request('/api/new',{count:50,seed:42,acceleration:'cpu'})).json();
+ const batchRoute='/api/batch?id='+batchCreated.id;
+ assert.equal((await request(batchRoute,{maxTicks:101})).status,400);
+ const batched=await (await request(batchRoute,{maxTicks:3,durationMs:500,runBot:false})).json();
+ assert.equal(batched.ticks,3);assert.equal(batched.state.tick,3);assert.equal(batched.state.busy,false);
+ const stock=await (await request('/api/query?id='+batchCreated.id,{method:'get_stock',args:{stock:'A'}})).json();assert.ok(stock.supply>0);
+ const waiting=await (await request('/api/bot/compile?id='+batchCreated.id,{source:'#include "market.hpp"\n#include <thread>\n#include <chrono>\nint main(){std::this_thread::sleep_for(std::chrono::seconds(1));return market::stock("A").supply>0?0:1;}'})).json();assert.ok(waiting.result?.ok);
+ await request('/api/bot/config?id='+batchCreated.id,{enabled:true});const activeBatch=request(batchRoute,{maxTicks:100,durationMs:500});
+ await new Promise(r=>setTimeout(r,200));const batchState=await (await request('/api/state?id='+batchCreated.id)).json();assert.ok(batchState.busy&&batchState.bot.running);
+ assert.equal((await request('/api/step?id='+batchCreated.id,{})).status,400);assert.equal((await request('/api/pause?id='+batchCreated.id,{})).status,200);
+ const stopped=await (await activeBatch).json();assert.equal(stopped.ticks,1);assert.equal(stopped.state.busy,false);assert.equal(stopped.run.code,0);
+ console.log('HTTP: configuration, SDK, borrowing, process control, round lock, CSV, personal/public data, batched ticks and pause passed.');}
 main().catch(e=>{console.error(e);process.exitCode=1;});

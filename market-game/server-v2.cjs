@@ -15,9 +15,11 @@ const server=http.createServer(async(req,res)=>{try{const allowedHosts=[`127.0.0
   if(route==='/api/history'){const data=session.rpc('get_history',{stock:url.searchParams.get('stock')||'A',timeframe:Number(url.searchParams.get('timeframe')||1),count:Number(url.searchParams.get('count')??240),offset:Number(url.searchParams.get('offset')||0)});json(res,data);return;}
   if(route==='/api/export'){const bars=session.rpc('get_history',{stock:url.searchParams.get('stock')||'A',timeframe:Number(url.searchParams.get('timeframe')||1),count:0});const keys=['tick','endTick','open','high','low','close','volume','turnover','trades','vwap','complete'];res.writeHead(200,{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="market-history.csv"'});res.end('\uFEFF'+keys.join(',')+'\n'+bars.map(b=>keys.map(k=>b[k]).join(',')).join('\n'));return;}
   if(req.method!=='POST'){json(res,{error:'未知请求。'},404);return;}const args=await body(req);
+  if(route==='/api/pause'){session.batchStop=true;json(res,{ok:true});return;}
+  if(route==='/api/batch'){json(res,await session.batch(args));return;}
   if(route==='/api/step'){const result=await session.step(args.runBot??session.bot.enabled);result.state.busy=false;json(res,result);return;}
-  if(route==='/api/action'){if(session.busy||session.bot.compiling)throw new Error('本刻程序尚未结束，暂不能手动交易。');const result=session.action(args.method,args.args);json(res,{result,state:session.snapshot()});return;}
-  if(route==='/api/bot/compile'){if(session.busy)throw new Error('请先停止本刻程序再编译。');const result=await session.bot.compile(args);json(res,{result,state:session.snapshot()});return;}
+  if(route==='/api/action'){if(session.busy||session.batching||session.bot.compiling)throw new Error('本刻程序尚未结束，暂不能手动交易。');const result=session.action(args.method,args.args);json(res,{result,state:session.snapshot()});return;}
+  if(route==='/api/bot/compile'){if(session.busy||session.batching)throw new Error('请先停止本刻程序再编译。');const result=await session.bot.compile(args);json(res,{result,state:session.snapshot()});return;}
   if(route==='/api/bot/config'){if(args.enabled===false)session.bot.stop();else if(args.enabled===true){if(!session.bot.executable||session.bot.compiling)throw new Error('请先成功编译程序。');session.bot.enabled=true;}if(args.timeout!==undefined){const t=Number(args.timeout);if(!Number.isInteger(t)||t<1||t>120)throw new Error('每刻时间上限为 1–120 秒。');session.bot.timeout=t;}json(res,session.snapshot());return;}
   if(route==='/api/query'){json(res,session.rpc(args.method,args.args||{}));return;}json(res,{error:'未知接口。'},404);return;
  }
