@@ -1,19 +1,19 @@
 'use strict';
-const {forecast}=require('./analyst-model.cjs');
+const {forecast}=require('./analyst-model.cjs'),{shouldRepay}=require('./rate-decisions.cjs');
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function decide(m,a){
  m.cancelAll(a.id);const eq=m.equity(a);if(eq<=0){a.action='分析派：停止新增风险';m.activity.wait++;return;}
  const extreme=a.analystStyle==='极端动量',defensive=a.analystStyle==='防御轮动';
  const rows=m.stocks.map((s,i)=>{const ind=m.indicators(i),model=forecast(a.analystStyle,ind,s.price,s.publicValue*Math.exp(a.valuationBias),a.risk,m.analysisContext(i));
  const bid=m.orderIndex.best(i,'buy',a.id),ask=m.orderIndex.best(i,'sell',a.id),spread=bid&&ask?Math.max(0,(ask.price-bid.price)/s.price):.003;
- const uncertainty=model.volatility*Math.sqrt(model.horizon),longEdge=model.signal+model.dividendYield*Math.max(1,model.horizon/12)-Math.expm1(model.horizon*Math.log1p(m.cashRate))-spread;
+ const uncertainty=model.volatility*Math.sqrt(model.horizon),cashCarry=Math.expm1(model.horizon*Math.log1p(m.cashRate)),longEdge=model.signal+model.dividendYield*Math.max(1,model.horizon/12)-cashCarry-spread;
  // An overpriced but rising stock is a reason to reduce a long, not proof it will fall.
  const falling=ind.momentum<-.002&&ind.regressionSlope<-.0001&&ind.regressionR2>.35;
- const shortEdge=falling?-model.signal-m.lending.rate*model.horizon-model.dividendYield*Math.max(1,model.horizon/12)-Math.max(0,m.cashRate)*model.horizon-spread:0;
+ const shortEdge=falling?-model.signal-m.lending.rate*model.horizon-model.dividendYield*Math.max(1,model.horizon/12)+cashCarry-spread:0;
  const borrowingEdge=longEdge-Math.expm1(model.horizon*Math.log1p(m.loanRate))-uncertainty;
- return {i,s,ind,model,bid,ask,longEdge,shortEdge,borrowingEdge,uncertainty};});
+ return {i,s,ind,model,bid,ask,cashCarry,longEdge,shortEdge,borrowingEdge,uncertainty};});
  const state=a.analystState||(a.analystState={cooldown:[0,0,0,0,0]});
- const buys=rows.filter(r=>r.longEdge>.001&&r.model.signal>0&&state.cooldown[r.i]<=m.tick);
+ const buys=rows.filter(r=>r.longEdge>.001&&r.model.signal>Math.min(0,r.cashCarry)&&state.cooldown[r.i]<=m.tick);
  const strongest=Math.max(0,...buys.map(r=>r.borrowingEdge));
  // Strategic risk budget only: exchange credit and mark-to-market collateral stay unchanged.
  const riskBudget=extreme?.12:defensive?.025:.06,maxStrategy=extreme?8:defensive?1.2:3;
@@ -44,7 +44,7 @@ function decide(m,a){
  else if(kind==='short'&&bid){a.leverageLimit=Math.max(2,a.leverageLimit);q=Math.min(Math.floor(task.dollars/s.price),bid.qty,m.lending.available(a.id,i),Math.floor(m.margin(a.id).capacity/Math.max(s.price,bid.price)));if(q)result=m.shortTrade(a.id,i,q,bid.price*.997);}
  if(result?.ok){a.action=`分析派${{buy:'买入',sell:'减仓',short:'做空',cover:'平空'}[kind]} ${s.symbol} ${q} 股`;a.analysis=`${a.analystStyle} · 目标仓位/执行价 · 扣除持有成本 · ${kind==='short'?'下跌趋势确认':'优先管理存量风险'}`;m.activity[kind==='buy'||kind==='cover'?'buy':'sell']++;acted=true;break;}
  }
- const excess=m.availableCash(a.id)-eq*.15-m.shortValue(a);if(a.debt&&excess>0)m.repay(Math.min(a.debt,excess),a.id);
+ const excess=m.availableCash(a.id)-eq*.15-m.shortValue(a);if(a.debt&&shouldRepay(m)&&excess>0)m.repay(Math.min(a.debt,excess),a.id);
  if(!acted){a.action='分析派：等待净优势或仓位偏离';m.activity.wait++;}
 }
 module.exports={decide};

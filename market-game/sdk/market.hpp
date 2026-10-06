@@ -74,6 +74,9 @@ inline Result cancel_order(int id){return result(rpc("cancel",{{"id",id}}));}
 inline Result cancel_all(){return result(rpc("cancel_all"));}
 inline Json orders(){return rpc("get_orders");}inline Json rankings(const std::string& mode="equity"){return rpc("get_rankings",{{"mode",mode}});}
 // Complete public data and your own private data. Arrays are newest first except equity history.
+inline Json market_overview(){return rpc("get_market_overview");}
+inline Json market_index(){return rpc("get_index");}
+inline Json index_history(int count=200,int offset=0){return rpc("get_index_history",{{"count",count},{"offset",offset}});}
 inline Json market_info(){return rpc("get_market");}
 inline Json rules(){return rpc("get_rules");}
 inline Json player_info(){return rpc("get_player");}
