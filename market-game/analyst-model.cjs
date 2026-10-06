@@ -1,7 +1,7 @@
 'use strict';
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const STYLES=['趋势杠杆','价值纠偏','波动突破','均值反转','防御轮动','极端动量','逆势抄底','盘口跟随'];
-function forecast(style,ind,ref,publicValue,risk){
+function forecast(style,ind,ref,publicValue,risk,context={}){
  const trend=ind.regressionR2>.4&&Math.abs(ind.regressionSlope)>.00015;
  const slope=ind.regressionSlope,momentum=ind.momentum,value=Math.log(publicValue/ref),ema=Math.log(ind.ema12/ref),vol=Math.max(.002,ind.volatility);
  let signal=0,confidence=.5,exposure=.5,aggression=1,horizon=8,ceiling=20;
@@ -16,10 +16,12 @@ function forecast(style,ind,ref,publicValue,risk){
  default:signal=ind.imbalance*.008+slope*4+momentum*.25+value*.1;confidence=.55+Math.min(.3,Math.abs(ind.imbalance)*.3);exposure=signal>0?.55:.2;horizon=2;ceiling=8;
  }
  // Expensive stocks are not a free leveraged momentum trade. All styles see only public inputs.
+ const c=context.company;let fundamental=0,dividendYield=0;
+ if(c&&context.supply>0){const estimate=Math.max(.01,(context.start*.5+c.bookValuePerShare+clamp(c.cashFlow/context.supply*250,-context.start*.4,context.start*4))/.6425);fundamental=clamp(Math.log(estimate/ref),-.4,.4);dividendYield=Math.max(0,c.dividendPerShare/ref);signal+=fundamental*(style==='价值纠偏'||style==='防御轮动'?.35:.12)+dividendYield*2;confidence=Math.max(confidence,.55+Math.min(.3,Math.abs(fundamental)*1.2));}
  const expensive=Math.max(0,-value-.12);
  signal=clamp(signal+clamp(value,-.3,.3)*.08-Math.min(.08,expensive*.25),-.08,.08);
  if(value<-Math.log(style==='极端动量'?1.8:1.35)){exposure=Math.min(exposure,.05);ceiling=Math.min(ceiling,2);}
  if(signal<0)exposure=Math.min(exposure,.2);
- return {signal,confidence:clamp(confidence,.5,.95),exposure,aggression,horizon,ceiling,volatility:vol,risk};
+ return {fundamental,dividendYield,shortExposure:signal<0?(style==='极端动量'?.8:style==='防御轮动'?.15:.45):0,signal,confidence:clamp(confidence,.5,.95),exposure,aggression,horizon,ceiling,volatility:vol,risk};
 }
 module.exports={STYLES,forecast};

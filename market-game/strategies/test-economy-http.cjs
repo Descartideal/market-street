@@ -1,0 +1,13 @@
+'use strict';
+const assert=require('node:assert/strict'),base=process.env.MARKET_TEST_URL||'http://127.0.0.1:8765';
+(async()=>{let id='';const request=async(route,args)=>{const r=await fetch(base+route+(id?'?id='+id:''),{method:args===undefined?'GET':'POST',headers:{'Content-Type':'application/json'},body:args===undefined?undefined:JSON.stringify(args)});return {status:r.status,data:await r.json()};};
+ assert.equal((await request('/api/new',{count:50,cashRate:-.501})).status,400);assert.equal((await request('/api/new',{count:50,economyVolatility:.501})).status,400);
+ const created=await request('/api/new',{count:1000,seed:42,cashRate:-.0001,loanRate:-.001,economyVolatility:.02,acceleration:'cpu'});assert.equal(created.status,200);id=created.data.id;assert.equal(created.data.state.economy.volatility,.02);
+ const action=(method,args)=>request('/api/action',{method,args}),query=(method,args)=>request('/api/query',{method,args});
+ assert.ok((await action('set_leverage',{value:3})).data.result.ok);assert.ok((await action('borrow',{amount:1000})).data.result.ok);const short=await action('short_sell',{stock:'A',qty:1});assert.equal(short.data.result.filled,1);assert.equal(short.data.state.player.shorts[0],1);assert.ok(short.data.state.margin.shortValue>0);
+ const turn=await request('/api/batch',{maxTicks:12,durationMs:500,runBot:false});assert.equal(turn.data.ticks,12);const state=turn.data.state;assert.ok(Math.abs(state.player.debt-1000*Math.pow(.999,12))<1e-6);assert.notEqual(state.economy.factor,1);assert.ok(state.player.shortFees>0);assert.ok(state.player.totalDividends<0);
+ const company=(await query('get_company',{stock:'A'})).data;assert.equal(company.reportTick,12);assert.ok(company.dividendPerShare>0);assert.equal((await query('get_company_history',{stock:'A',count:0})).data.length,1);assert.equal((await query('get_economy',{count:0})).data.history.length,13);
+ const ledger=(await query('get_ledger',{count:0})).data;assert.ok(ledger.some(r=>r.type==='loan_interest'&&r.debtDelta<0));assert.ok(ledger.some(r=>r.type==='stock_borrow_fee'));assert.ok(ledger.some(r=>r.type==='dividend'&&r.amount<0));assert.equal((await query('get_rules')).data.shortSelling,true);
+ const closed=await action('cover',{stock:'A',qty:1});assert.equal(closed.data.result.filled,1);assert.equal(closed.data.state.player.shorts[0],0);assert.equal((await action('cover',{stock:'A',qty:1})).data.result.ok,false);
+ console.log('HTTP: signed-rate/volatility settings, real short and cover, macro history, public financial reports, dividend/fee ledger and negative debt accrual passed.');
+})().catch(e=>{console.error(e);process.exitCode=1;});

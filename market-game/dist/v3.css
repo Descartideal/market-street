@@ -24,3 +24,5 @@ main{padding-top:0}
 .stock-bottom .period-label{font-size:9px;opacity:.7;font-weight:400;white-space:nowrap}
 
 #customSpeedField{font-size:11px;color:var(--muted)}#customSpeed{width:74px;padding:8px;margin-left:5px}#actualSpeed{font-size:11px;color:var(--muted);white-space:nowrap}.time-controls{flex-wrap:wrap}
+
+.ticket .segmented{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.ticket .segmented button{padding:10px 4px}.company-panel{margin:20px 0}.company-info{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:0 20px 20px;gap:16px}.company-info div{display:flex;flex-direction:column;gap:8px;min-width:0}.company-info small,.company-info span,#economyStatus{font-size:11px;color:var(--muted)}.company-info strong{font-size:16px;overflow-wrap:anywhere}@media(max-width:900px){.company-info{grid-template-columns:repeat(2,minmax(0,1fr))}}

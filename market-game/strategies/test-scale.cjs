@@ -1,8 +1,8 @@
 'use strict';
 const assert=require('node:assert/strict'),{Market}=require('../engine-v2.cjs'),{GameSession}=require('../controller.cjs');
-const m=new Market({count:10000,seed:42,playerCash:25000,cashRate:.0002,loanRate:.001});
+const m=new Market({count:10000,seed:42,playerCash:25000,cashRate:.0002,loanRate:.001,economyVolatility:0});
 assert.equal(m.player.cash,25000);assert.equal(m.equityHistory[0],25000);assert.equal(m.goalEquity,50000);
-for(const args of [{count:100001},{cashRate:-1},{cashRate:.011},{loanRate:.021},{playerCash:0},{acceleration:'fake'}])assert.throws(()=>new Market(args));
+for(const args of [{count:100001},{cashRate:-1},{cashRate:.501},{loanRate:-.501},{economyVolatility:.501},{playerCash:0},{acceleration:'fake'}])assert.throws(()=>new Market(args));
 const wealth=m.agents.map(a=>a.initialEquity).sort((a,b)=>a-b);assert.ok(wealth[9900]>wealth[5000]*15);assert.ok(wealth[0]<2000&&wealth.at(-1)>100000);
 const ordinary=m.agents.filter(a=>a.type<5);assert.ok(ordinary.filter(a=>!a.usesLoans).length/ordinary.length>.7);
 assert.ok(m.agents.filter(a=>a.type===5&&a.usesLoans).length/m.agents.filter(a=>a.type===5).length>.7);

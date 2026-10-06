@@ -45,8 +45,8 @@ public:
 inline Json rpc(const std::string& method,Json::Object args={}){static std::mutex mutex;std::scoped_lock lock(mutex);std::cout<<"\n@market "<<Json(Json::Object{{"method",method},{"args",Json(std::move(args))}}).dump()<<std::endl;std::string line;if(!std::getline(std::cin,line))throw std::runtime_error("Game connection closed. Run this program through Market Street.");const auto answer=Json::parse(line);if(!answer["ok"].boolean())throw std::runtime_error(answer["error"].string("Game API error"));return answer["data"];}
 struct Result {bool ok=false;int filled=0,order_id=0,remaining=0;double amount=0;std::string message;};
 inline Result result(const Json& j){return {j["ok"].boolean(),j["filled"].integer(),j["orderId"].integer(),j["remaining"].integer(),j["amount"].number(),j["message"].string()};}
-struct Account {int tick=0;double cash=0,available_cash=0,equity=0,debt=0,investment=0,borrow_capacity=0,margin_ratio=1,finance_costs=0,total_income=0;bool liquidating=false;std::vector<int> shares;};
-inline Account account(){const auto j=rpc("get_account");Account a;a.tick=j["tick"].integer();a.cash=j["cash"].number();a.available_cash=j["availableCash"].number();a.equity=j["equity"].number();a.debt=j["debt"].number();a.investment=j["investment"].number();a.borrow_capacity=j["margin"]["capacity"].number();a.margin_ratio=j["margin"]["ratio"].number();a.liquidating=j["margin"]["liquidating"].boolean();a.finance_costs=j["financeCosts"].number();a.total_income=j["totalIncome"].number();for(const auto& q:j["shares"].array())a.shares.push_back(q.integer());return a;}
+struct Account {int tick=0;double cash=0,available_cash=0,equity=0,debt=0,investment=0,borrow_capacity=0,margin_ratio=1,finance_costs=0,total_income=0;bool liquidating=false;std::vector<int> shares,shorts,lent;double short_value=0,short_fees=0,total_dividends=0;};
+inline Account account(){const auto j=rpc("get_account");Account a;a.tick=j["tick"].integer();a.cash=j["cash"].number();a.available_cash=j["availableCash"].number();a.equity=j["equity"].number();a.debt=j["debt"].number();a.investment=j["investment"].number();a.borrow_capacity=j["margin"]["capacity"].number();a.margin_ratio=j["margin"]["ratio"].number();a.liquidating=j["margin"]["liquidating"].boolean();a.finance_costs=j["financeCosts"].number();a.total_income=j["totalIncome"].number();for(const auto& q:j["shares"].array())a.shares.push_back(q.integer());for(const auto& q:j["shorts"].array())a.shorts.push_back(q.integer());for(const auto& q:j["lent"].array())a.lent.push_back(q.integer());a.short_value=j["margin"]["shortValue"].number();a.short_fees=j["shortFees"].number();a.total_dividends=j["totalDividends"].number();return a;}
 inline int tick(){return rpc("get_tick")["tick"].integer();}
 inline std::string phase(){return rpc("get_tick")["phase"].string();}
 struct Indicators {double sma5=0,sma20=0,ema12=0,rsi14=50,volatility=0,regression_slope=0,regression_r2=0,bollinger_upper=0,bollinger_lower=0,z_score=0,imbalance=0,momentum=0;};
@@ -62,6 +62,14 @@ inline Result buy(const std::string& symbol,int qty){return result(rpc("trade",{
 inline Result sell(const std::string& symbol,int qty){return result(rpc("trade",{{"stock",symbol},{"side","sell"},{"qty",qty},{"kind","market"}}));}
 inline Result limit_buy(const std::string& symbol,int qty,double price,int ttl=30){return result(rpc("trade",{{"stock",symbol},{"side","buy"},{"qty",qty},{"kind","limit"},{"price",price},{"ttl",ttl}}));}
 inline Result limit_sell(const std::string& symbol,int qty,double price,int ttl=30){return result(rpc("trade",{{"stock",symbol},{"side","sell"},{"qty",qty},{"kind","limit"},{"price",price},{"ttl",ttl}}));}
+inline Result short_sell(const std::string& symbol,int qty,double price=0){return result(rpc("short_sell",{{"stock",symbol},{"qty",qty},{"price",price}}));}
+inline Result cover(const std::string& symbol,int qty,double price=0){return result(rpc("cover",{{"stock",symbol},{"qty",qty},{"price",price}}));}
+inline Json company(const std::string& symbol){return rpc("get_company",{{"stock",symbol}});}
+inline Json dividends(const std::string& symbol,int count=100,int offset=0){return rpc("get_dividends",{{"stock",symbol},{"count",count},{"offset",offset}});}
+inline Json companies(){return rpc("get_companies");}
+inline Json company_history(const std::string& symbol,int count=100,int offset=0){return rpc("get_company_history",{{"stock",symbol},{"count",count},{"offset",offset}});}
+inline Json economy(int count=100,int offset=0){return rpc("get_economy",{{"count",count},{"offset",offset}});}
+inline Json lending(){return rpc("get_lending");}
 inline Result cancel_order(int id){return result(rpc("cancel",{{"id",id}}));}
 inline Result cancel_all(){return result(rpc("cancel_all"));}
 inline Json orders(){return rpc("get_orders");}inline Json rankings(const std::string& mode="equity"){return rpc("get_rankings",{{"mode",mode}});}

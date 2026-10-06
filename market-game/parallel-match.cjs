@@ -8,11 +8,11 @@ function plan({resting,incoming}) {
  for(const row of incoming){const order={...row},oppositeHeap=order.side==='buy'?sell:buy,own=[];
   while(order.qty){let opposite=oppositeHeap.peek();while(opposite&&(opposite.qty===0||opposite.owner===order.owner)){const skipped=oppositeHeap.pop();if(skipped.qty)own.push(skipped);opposite=oppositeHeap.peek();}if(!opposite||(order.side==='buy'?opposite.price>order.price:opposite.price<order.price))break;
    const qty=Math.min(order.qty,opposite.qty);fills.push({buy:order.side==='buy'?order.id:opposite.id,sell:order.side==='sell'?order.id:opposite.id,price:opposite.price,qty});order.qty-=qty;opposite.qty-=qty;
-  }for(const o of own)oppositeHeap.push(o);if(order.qty)(order.side==='buy'?buy:sell).push(order);
+  }for(const o of own)oppositeHeap.push(o);if(order.qty&&order.kind!=='ioc')(order.side==='buy'?buy:sell).push(order);
  }return fills;
 }
-function pack(rows){const buffer=new Float64Array(rows.length*5);rows.forEach((r,i)=>buffer.set([r.id,r.owner,r.qty,r.price,r.side==='buy'?1:0],i*5));return buffer;}
-function unpack(buffer){const rows=[];for(let i=0;i<buffer.length;i+=5)rows.push({id:buffer[i],owner:buffer[i+1],qty:buffer[i+2],price:buffer[i+3],side:buffer[i+4]?'buy':'sell'});return rows;}
+function pack(rows){const buffer=new Float64Array(rows.length*6);rows.forEach((r,i)=>buffer.set([r.id,r.owner,r.qty,r.price,r.side==='buy'?1:0,r.kind==='ioc'?1:0],i*6));return buffer;}
+function unpack(buffer){const rows=[];for(let i=0;i<buffer.length;i+=6)rows.push({id:buffer[i],owner:buffer[i+1],qty:buffer[i+2],price:buffer[i+3],side:buffer[i+4]?'buy':'sell',kind:buffer[i+5]?'ioc':'limit'});return rows;}
 const {isMainThread,parentPort,threadId,Worker}=require('node:worker_threads');
 if(!isMainThread)parentPort.on('message',({id,task})=>{const start=performance.now();try{const fills=plan({resting:unpack(task.resting),incoming:unpack(task.incoming)}),buffer=new Float64Array(fills.length*4);fills.forEach((f,i)=>buffer.set([f.buy,f.sell,f.price,f.qty],i*4));parentPort.postMessage({id,buffer,threadId,start,end:performance.now()},[buffer.buffer]);}catch(error){parentPort.postMessage({id,error:error.message});}});
 let pool,serial=0;
