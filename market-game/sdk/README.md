@@ -66,7 +66,7 @@ int main() {
 
 ## 回合顺序与数据时点
 
-1. 生成新周期，处理过期订单，所有人获得现金利息和技能收入；融资利息计入所有借款人的负债，并检查强平。
+1. 生成新周期，处理过期订单，更新经济与公司经营，结算分红及借股费，再发放现金利息和技能收入；融资利息计入所有借款人的负债，并检查强平。
 2. 更新内部估值、行业消息和滞后的公开估值。
 3. 计算基于历史与当前信念的 NPC 风险情景，速度派第一次先交易。
 4. 启动玩家程序。此时 `phase()` 返回 `"player-bot"`，当前 K 线尚未完成。
@@ -111,9 +111,9 @@ int main() {
 
 `Result` 字段：`ok, filled, order_id, remaining, amount, message`。`order_id=0` 表示没有剩余挂单。市价单 `remaining` 是未成交股数；限价单是剩余挂单股数。普通交易失败通过 `ok=false` 返回，请检查 `message`。非法查询参数、断开的游戏连接等会抛 `std::exception`，建议在 `main()` 捕获并日志输出。
 
-买单冻结价格×剩余股数，卖单冻结剩余股数；冻结资产仍属于玩家，不能重复使用。市价买单要求现金足以支付本次可成交的所有数量，不会自动借款或自动缩单。市场不支持卖空。借款利率默认每刻 0.05%，现金利息默认每刻 0.01%，均可开局调整；实际值请查询 `rules()["loanRate"]` / `rules()["cashRate"]`；技能收入另加 $3/刻。
+买单冻结价格×剩余股数，卖单冻结剩余股数；冻结资产仍属于玩家，不能重复使用。市价买单要求现金足以支付本次可成交的所有数量，不会自动借款或自动缩单。普通 `sell()` 仅卖多头；做空和平空使用下述专用接口。借款利率默认每刻 0.05%，现金利息默认每刻 0.01%，均可开局调整为 −50%～50%；实际值请查询 `rules()["loanRate"]` / `rules()["cashRate"]`；技能收入为 $3 × 当前经济因子/刻，因子可通过 economy() 查询。
 
-可借额度 `max(0, (融资上限−1)×净资产−负债)`。保证金比例为 `净资产÷总资产`。1–3× 强平线为 25%、恢复线为 35%；4–100× 强平线为 `75%÷上限`、恢复线为 `90%÷上限`。100× 对应 0.75% / 0.90%。低于对应强平线时先撤单、用现金还款，再通过真实买盘卖出必要持仓，恢复到对应恢复线即停止。`player()["margin"]` 提供实际 `maintenance/recovery`，`rules()` 提供上限与保证金规则；`account().margin_ratio` 是当前实际比例。没有对手盘会保留持仓和负债，在后续回合重试；不能凭空变现。强平期间禁止买入、借款。
+可借额度 `max(0, (融资上限−1)×净资产−美元债务−空头市值)`。保证金比例为 `净资产÷总资产`。1–3× 强平线为 25%、恢复线为 35%；4–100× 强平线为 `75%÷上限`、恢复线为 `90%÷上限`。100× 对应 0.75% / 0.90%。低于对应强平线时先撤单，按实际盘口买回空头、出售可卖多头，并用多余现金偿还美元债务，恢复到对应恢复线即停止。`player()["margin"]` 提供实际 `maintenance/recovery`，`rules()` 提供上限与保证金规则；`account().margin_ratio` 是当前实际比例。没有对手盘会保留持仓和负债，在后续回合重试；不能凭空变现。强平期间禁止买入、借款。
 
 ## 跨回合记忆与输出
 
@@ -146,3 +146,34 @@ double last = market::memory_get("state")["last_price"].number();
 NPC 可以有负债，`trader_info()` / `traders()` 的 debt、financeCosts、leverageLimit、liquidating 和净资产均实际计入融资；SDK 的交易/借款函数始终只操作玩家，不能替 NPC 下单。NPC 的借款意愿、风险情景或内幕估值不作为公开数据暴露。
 
 `Stock::supply`（`long long`）是开局生成的本局该股总股数，之后交易只转移股份，不增发。公开交易者 JSON 的 `analystStyle` 表示分析派的八种风格之一，其他类型为空。高速批量推进仍每刻启动一个全新的策略程序，不会合并或跳过策略回合。
+
+## 公司、经济与做空接口（2026-10-07）
+
+| 函数 | 返回 / 行为 |
+|---|---|
+| `Json company(symbol)` / `companies()` | 最近公开公司财报及最新分红公告；`reportTick` 标示数据时点 |
+| `Json company_history(symbol,count=100,offset=0)` | 全部公开财报归档，时间正序；count=0 全部 |
+| `Json dividends(symbol,count=100,offset=0)` | 完整分红归档，时间正序，字段 tick/perShare/amount |
+| `Json economy(count=100,offset=0)` | 当前 factor/volatility，以及正序历史；波动参数为小数 |
+| `Json lending()` | 借股费率、玩家可借股数、自己的空头成本与借股明细（出借人和股数） |
+| `Result short_sell(symbol,qty,price=0)` | 借现有股票并卖出，剩余借股退回；price=0 市价，正价格为 IOC 最低卖价 |
+| `Result cover(symbol,qty,price=0)` | 买回并归还股票；price=0 市价，正价格为 IOC 最高买价 |
+
+做空/平空不留下长期挂单，order_id 为 0；remaining 是未成交数量。没有真实借股库存或对手盘会失败；平空须有足够现金。普通 buy/sell 不自动改变空头。强平中可以 cover，禁止新增空头或普通买入。
+
+`Account` 新增 `shorts`、`lent`（A–E 对应数组）、`short_value`、`short_fees`、`total_dividends`。`player_info()` 另提供各股 shortCost 和 long/short 未实现盈亏。美元 debt 不含股票归还义务；净资产已扣两者。借股费固定 0.02% / 刻，空头支付分红补偿，累计 total_dividends 可以为负。费用不足现金时新增美元负债并检查强平。净分红和借股收入计入投资收益；技能与现金利息继续从投资收益中剔除。
+
+公司字段：symbol/reportTick/cash/debt/revenue/expenses/operatingMargin/cashFlow/productivity/demand/bookValuePerShare/dividendPerShare/lastDividendTick/totalDividends/dividendHistory。cashFlow 为报告当刻现金流；股东得到的是实际公告并支付的分红，并非每刻全部营业现金流。财报间隔 12 刻，分红条件检查间隔 12 刻，不保证每次分红。公司查询没有实时私有经营信息、内部估值或未来数据。
+
+```cpp
+#include "market.hpp"
+int main() {
+    auto a = market::account();
+    auto c = market::company("A");
+    market::log("公开财报刻数 " + std::to_string(c["reportTick"].integer()));
+    // 示例只展示调用；自行编写判断条件，不能仅因现金流为负就断言股价必跌。
+    if (a.shorts[0] > 0 && a.available_cash > market::stock("A").price * 2)
+        market::log(market::cover("A", 1).message);
+    return 0;
+}
+```
