@@ -8,7 +8,8 @@ const ordinary=m.agents.filter(a=>a.type<5);assert.ok(ordinary.filter(a=>!a.uses
 assert.ok(m.agents.filter(a=>a.type===5&&a.usesLoans).length/m.agents.filter(a=>a.type===5).length>.7);
 const income=m.player.cash*.0002+3;m.setLeverage(2);m.borrow(1000);const before=m.player.cash;m.beginTick();assert.ok(Math.abs(m.player.cash-before-(before*.0002+3))<1e-8);assert.equal(m.player.debt,1001);m.finishTick();
 for(const a of m.speedAgents){const sequence=m.actionSequence.filter(row=>row.id===a.id);assert.equal(sequence.length,2);assert.equal(sequence[0].phase,'speed');assert.deepEqual(sequence.slice(1).map(r=>r.phase),['normal']);}
-for(const type of [0,5,7]){
+// Analyst sizing/credit is tested against real executable books in test-analyst-trader.cjs.
+for(const type of [0,5]){
  const sample=new Market({count:50,seed:9});sample.orders=[];const a=sample.agents.find(a=>a.type===type);a.focus=0;a.knownSymbols=type===5?[0]:[];a.cash=type===0?100000:0;a.shares=[0,1000,0,0,0];a.usesLoans=type!==0;a.leverageLimit=3;a.loanPreference=1;
  sample.random=()=>.1;sample.stocks[0].fair=130;sample.stocks[0].publicValue=120;sample.riskResults=new Float64Array(sample.count*2).fill(1);
  if(type===7){const ind=sample.indicators(0,false);sample.stocks[0].technicalCache={key:'0:false',value:{...ind,regressionR2:.9,regressionSlope:.005,ema12:110}};}

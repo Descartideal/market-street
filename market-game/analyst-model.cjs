@@ -17,7 +17,7 @@ function forecast(style,ind,ref,publicValue,risk,context={}){
  }
  // Expensive stocks are not a free leveraged momentum trade. All styles see only public inputs.
  const c=context.company;let fundamental=0,dividendYield=0;
- if(c&&context.supply>0){const estimate=Math.max(.01,(context.start*.5+c.bookValuePerShare+clamp(c.cashFlow/context.supply*250,-context.start*.4,context.start*4))/.6425);fundamental=clamp(Math.log(estimate/ref),-.4,.4);dividendYield=Math.max(0,c.dividendPerShare/ref);signal+=fundamental*(style==='价值纠偏'||style==='防御轮动'?.35:.12)+dividendYield*2;confidence=Math.max(confidence,.55+Math.min(.3,Math.abs(fundamental)*1.2));}
+ if(c&&context.supply>0){const estimate=Math.max(.01,(context.start*.5+c.bookValuePerShare+clamp(c.cashFlow/context.supply*250,-context.start*.4,context.start*4))/.6425);fundamental=clamp(Math.log(estimate/ref),-.4,.4);dividendYield=Math.max(0,c.dividendPerShare/ref);signal+=fundamental*(style==='价值纠偏'||style==='防御轮动'?.35:.12)+dividendYield*2;/* A valuation gap is not a calibrated probability of a price reversal. */}
  const expensive=Math.max(0,-value-.12);
  signal=clamp(signal+clamp(value,-.3,.3)*.08-Math.min(.08,expensive*.25),-.08,.08);
  if(value<-Math.log(style==='极端动量'?1.8:1.35)){exposure=Math.min(exposure,.05);ceiling=Math.min(ceiling,2);}
