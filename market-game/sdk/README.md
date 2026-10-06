@@ -177,3 +177,14 @@ int main() {
     return 0;
 }
 ```
+
+
+## 大盘与全市场统计
+
+- `Json market_index()`：`tick, base(1000), value, previous, changePct, fromStartPct, baseMarketCap, marketCap, complete, method`。固定发行量加权价格指数，不含分红再投资。
+- `Json market_overview()`：`index`、`totals`、最近至多 120 刻 `indexHistory`。`totals` 包含 `participants, totalCash, totalDebt, totalShortLiability, totalLiabilities, totalSupply, stocks`；各股汇总字段为 `symbol, supply, marketCap, shortQty, shortLiability`。
+- `Json index_history(count=200, offset=0)`：按时间正序，`count=0` 取全部，条数与偏移规则同其他分页接口；未封存周期 `complete=false`。手动成交可能形成下一刻的待完成点。
+
+总现金包括冻结现金，统计所有 NPC 加玩家；不包含公司经营现金或融资银行账目。总融资债务为美元贷款；总负债另加借股股票归还义务，借出人的对应债权仍保留。初始股数固定，不因做空增加。
+
+正负利率改变持有成本与利差；所有八类 NPC 都会比较。现金利率高于债务利率时，愿意融资的 NPC 可以借款持币并保留便宜负债，反之优先用闲置现金还债。玩家接口仍不自动借款或还款。`trader(id)["rateAnalysis"]` 是公开的决策说明。

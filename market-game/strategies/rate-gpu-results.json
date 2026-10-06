@@ -1,0 +1,220 @@
+{
+  "date": "2026-10-06T23:31:18.430Z",
+  "hardware": {
+    "device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+    "discrete": true
+  },
+  "count": 1000,
+  "ticks": 12,
+  "scenarios": [
+    {
+      "cashRate": -0.001,
+      "loanRate": -0.003,
+      "backend": "CUDA",
+      "totals": {
+        "participants": 1001,
+        "totalCash": 6425195.9936820725,
+        "totalDebt": 2149238.864682956,
+        "totalShortLiability": 0,
+        "totalLiabilities": 2149238.864682956,
+        "totalSupply": 63944,
+        "stocks": [
+          {
+            "symbol": "A",
+            "supply": 9043,
+            "marketCap": 946259.52,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "B",
+            "supply": 14164,
+            "marketCap": 1010601.3999999999,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "C",
+            "supply": 22190,
+            "marketCap": 940634.1,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "D",
+            "supply": 7140,
+            "marketCap": 1007668.2,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "E",
+            "supply": 11407,
+            "marketCap": 898529.3899999999,
+            "shortQty": 0,
+            "shortLiability": 0
+          }
+        ]
+      },
+      "index": 1052.9795287154755,
+      "borrowers": 177
+    },
+    {
+      "cashRate": -0.003,
+      "loanRate": -0.001,
+      "backend": "CUDA",
+      "totals": {
+        "participants": 1001,
+        "totalCash": 4155059.2968722335,
+        "totalDebt": 27575.506930742788,
+        "totalShortLiability": 0,
+        "totalLiabilities": 27575.506930742788,
+        "totalSupply": 63944,
+        "stocks": [
+          {
+            "symbol": "A",
+            "supply": 9043,
+            "marketCap": 938934.69,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "B",
+            "supply": 14164,
+            "marketCap": 941622.7200000001,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "C",
+            "supply": 22190,
+            "marketCap": 962824.1,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "D",
+            "supply": 7140,
+            "marketCap": 1048866,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "E",
+            "supply": 11407,
+            "marketCap": 917008.73,
+            "shortQty": 0,
+            "shortLiability": 0
+          }
+        ]
+      },
+      "index": 1054.199088119246,
+      "borrowers": 4
+    },
+    {
+      "cashRate": 0.001,
+      "loanRate": -0.001,
+      "backend": "CUDA",
+      "totals": {
+        "participants": 1001,
+        "totalCash": 6219698.550569703,
+        "totalDebt": 1847887.303270193,
+        "totalShortLiability": 0,
+        "totalLiabilities": 1847887.303270193,
+        "totalSupply": 63944,
+        "stocks": [
+          {
+            "symbol": "A",
+            "supply": 9043,
+            "marketCap": 899145.4900000001,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "B",
+            "supply": 14164,
+            "marketCap": 918393.76,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "C",
+            "supply": 22190,
+            "marketCap": 931092.4,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "D",
+            "supply": 7140,
+            "marketCap": 891571.8,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "E",
+            "supply": 11407,
+            "marketCap": 914156.98,
+            "shortQty": 0,
+            "shortLiability": 0
+          }
+        ]
+      },
+      "index": 998.3253901797457,
+      "borrowers": 177
+    },
+    {
+      "cashRate": -0.001,
+      "loanRate": 0.001,
+      "backend": "CUDA",
+      "totals": {
+        "participants": 1001,
+        "totalCash": 4292171.5304529155,
+        "totalDebt": 64714.259764958624,
+        "totalShortLiability": 0,
+        "totalLiabilities": 64714.259764958624,
+        "totalSupply": 63944,
+        "stocks": [
+          {
+            "symbol": "A",
+            "supply": 9043,
+            "marketCap": 930072.5499999999,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "B",
+            "supply": 14164,
+            "marketCap": 933974.1599999999,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "C",
+            "supply": 22190,
+            "marketCap": 945515.9,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "D",
+            "supply": 7140,
+            "marketCap": 902139,
+            "shortQty": 0,
+            "shortLiability": 0
+          },
+          {
+            "symbol": "E",
+            "supply": 11407,
+            "marketCap": 935830.28,
+            "shortQty": 0,
+            "shortLiability": 0
+          }
+        ]
+      },
+      "index": 1018.7487702761947,
+      "borrowers": 5
+    }
+  ],
+  "implementationCommit": "3b7ec47ebdc7d9bbc65a3aafbe724cc1a6e9ddee"
+}
